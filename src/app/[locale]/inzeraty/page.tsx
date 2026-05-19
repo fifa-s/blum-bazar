@@ -1,6 +1,7 @@
 import { Button, Flex, Text, Title } from "@mantine/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { ListingsSearch } from "@/components/ui/ListingsSearch";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -23,6 +24,7 @@ export default async function Page(_: PageProps<"/[locale]">) {
         </Text>
         <Button>+ Přidat nabídku</Button>
       </Flex>
+      <ListingsSearch />
     </>
   );
 }
