@@ -1,6 +1,7 @@
 import { Text, Title } from "@mantine/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -20,6 +21,9 @@ export default async function Page(_: PageProps<"/[locale]">) {
       <Text w="50%" c="dimmed">
         {t("page.home.description")}
       </Text>
+      <Link href="/inzeraty" style={{ color: "blue" }}>
+        Inzeráty
+      </Link>
     </>
   );
 }
