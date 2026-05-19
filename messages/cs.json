@@ -36,6 +36,11 @@
         "available": "Dostupné",
         "reserved": "Reservované",
         "sold": "Prodáno"
+      },
+      "price": {
+        "all": "Všechny ceny",
+        "free": "Zdarma",
+        "paid": "Placené"
       }
     }
   }
