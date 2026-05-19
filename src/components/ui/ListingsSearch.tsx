@@ -8,9 +8,9 @@ export function ListingsSearch() {
   const t = useTranslations();
 
   return (
-    <Paper radius="md" withBorder p="sm">
-      <Stack gap="sm">
-        <Flex gap="sm">
+    <Paper radius="md" withBorder p="md">
+      <Stack gap="md">
+        <Flex gap="md">
           <TextInput
             placeholder={t("components.listingsSearch.placeholder")}
             leftSection={<Search size={16} />}
