@@ -1,4 +1,4 @@
-import { Button, Flex, Text, Title } from "@mantine/core";
+import { Button, Flex, Stack, Text, Title } from "@mantine/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ListingsSearch } from "@/components/ui/ListingsSearch";
@@ -16,7 +16,7 @@ export default async function Page(_: PageProps<"/[locale]">) {
   const t = await getTranslations();
 
   return (
-    <>
+    <Stack gap="md">
       <Title>{t("page.listings.title")}</Title>
       <Flex justify="space-between" align="flex-end">
         <Text c="dimmed" w="50%">
@@ -25,6 +25,6 @@ export default async function Page(_: PageProps<"/[locale]">) {
         <Button>+ Přidat nabídku</Button>
       </Flex>
       <ListingsSearch />
-    </>
+    </Stack>
   );
 }
