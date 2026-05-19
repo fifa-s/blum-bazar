@@ -43,9 +43,9 @@ export function ListingsSearch() {
           <SegmentedControl
             style={{ flex: 1 }}
             data={[
-              { label: "Vše", value: "all" },
-              { label: "Zdarma", value: "free" },
-              { label: "Placené", value: "paid" },
+              { value: "all", label: t("components.listingsSearch.price.all") },
+              { value: "free", label: t("components.listingsSearch.price.free") },
+              { value: "paid", label: t("components.listingsSearch.price.paid") },
             ]}
           />
         </Flex>
