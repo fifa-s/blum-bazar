@@ -8,9 +8,9 @@ export function ListingsSearch() {
   const t = useTranslations();
 
   return (
-    <Paper radius="md" withBorder p="sm">
-      <Stack gap="sm">
-        <Flex gap="sm">
+    <Paper radius="md" withBorder p="md">
+      <Stack gap="md">
+        <Flex gap="md">
           <TextInput
             placeholder={t("components.listingsSearch.placeholder")}
             leftSection={<Search size={16} />}
@@ -20,22 +20,22 @@ export function ListingsSearch() {
             style={{ flex: 1 }}
             placeholder={t("components.listingsSearch.categoryPlaceholder")}
             data={[
-              { value: "all", label: t("components.listingsSearch.category.all") },
-              { value: "electronics", label: t("components.listingsSearch.category.electronics") },
-              { value: "furniture", label: t("components.listingsSearch.category.furniture") },
-              { value: "clothing", label: t("components.listingsSearch.category.clothing") },
-              { value: "books", label: t("components.listingsSearch.category.books") },
-              { value: "other", label: t("components.listingsSearch.category.other") },
+              { value: "all", label: t("common.category.all") },
+              { value: "electronics", label: t("common.category.electronics") },
+              { value: "furniture", label: t("common.category.furniture") },
+              { value: "clothing", label: t("common.category.clothing") },
+              { value: "books", label: t("common.category.books") },
+              { value: "other", label: t("common.category.other") },
             ]}
           />
           <Select
             style={{ flex: 1 }}
             placeholder={t("components.listingsSearch.statePlaceholder")}
             data={[
-              { value: "all", label: t("components.listingsSearch.state.all") },
-              { value: "available", label: t("components.listingsSearch.state.available") },
-              { value: "reserved", label: t("components.listingsSearch.state.reserved") },
-              { value: "sold", label: t("components.listingsSearch.state.sold") },
+              { value: "all", label: t("common.listingState.all") },
+              { value: "available", label: t("common.listingState.available") },
+              { value: "reserved", label: t("common.listingState.reserved") },
+              { value: "sold", label: t("common.listingState.sold") },
             ]}
           />
         </Flex>
@@ -43,9 +43,9 @@ export function ListingsSearch() {
           <SegmentedControl
             style={{ flex: 1 }}
             data={[
-              { label: "Vše", value: "all" },
-              { label: "Zdarma", value: "free" },
-              { label: "Placené", value: "paid" },
+              { value: "all", label: t("common.listingPrice.all") },
+              { value: "free", label: t("common.listingPrice.free") },
+              { value: "paid", label: t("common.listingPrice.paid") },
             ]}
           />
         </Flex>
