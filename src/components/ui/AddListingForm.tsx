@@ -3,9 +3,13 @@
 import { Button, Checkbox, Group, NumberInput, Paper, Select, Stack, Text, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { validateEmail } from "@/helpers/validators";
 
 export function AddListingForm() {
   const t = useTranslations();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const form = useForm({
     mode: "uncontrolled",
@@ -18,26 +22,64 @@ export function AddListingForm() {
         name: "",
         email: "",
       },
+      listingState: "available",
     },
 
     validate: {
       itemName: (value) => (value ? null : "Item name is required"),
       itemCategory: (value) => (value ? null : "Category is required"),
       contact: {
-        email: (value) => {
-          if (!value) return null; // Email is optional
-          const re =
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return re.test(value) ? null : "Invalid email";
-        },
+        email: validateEmail,
       },
     },
   });
 
+  const handleSubmit = async (values: typeof form.values) => {
+    setIsSubmitting(true);
+    setServerError(null);
+
+    const payload = {
+      itemName: values.itemName.trim(),
+      itemDescription: values.itemDescription?.trim() || null,
+      itemCategory: values.itemCategory.trim(),
+      itemPrice: values.itemPrice,
+      contactName: values.contact.name.trim() || null,
+      contactEmail: values.contact.email.trim() || null,
+      listingState: values.listingState,
+    };
+
+    try {
+      const response = await fetch("/api/listings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setServerError(data?.error || "Unable to save listing.");
+        return;
+      }
+
+      form.reset();
+      window.alert(t("page.add.successMessage") ?? "Listing created successfully.");
+    } catch (_error) {
+      setServerError("Network error, please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <Paper radius="md" withBorder p="md">
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
+          {serverError ? (
+            <Text c="red" size="sm">
+              {serverError}
+            </Text>
+          ) : null}
           <TextInput
             withAsterisk
             label={t("page.add.item.name")}
@@ -107,7 +149,9 @@ export function AddListingForm() {
             {t("page.add.paymentInfo")}
           </Text>
           <Group justify="flex-end">
-            <Button type="submit">{t("page.add.button")}</Button>
+            <Button type="submit" loading={isSubmitting}>
+              {t("page.add.button")}
+            </Button>
           </Group>
         </Stack>
       </form>

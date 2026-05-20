@@ -65,7 +65,8 @@
         "name": "Stav nabídky"
       },
       "paymentInfo": "Platba a předání si domluvíte přímo mezi sebou.",
-      "button": "Přidat nabídku"
+      "button": "Přidat nabídku",
+      "successMessage": "Nabídka byla úspěšně přidána."
     },
     "listings": {
       "title": "Inzeráty",
