@@ -2,6 +2,7 @@ import { Button, Flex, Stack, Text, Title } from "@mantine/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ListingsSearch } from "@/components/ui/ListingsSearch";
+import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -22,7 +23,9 @@ export default async function Page(_: PageProps<"/[locale]">) {
         <Text c="dimmed" w="50%">
           {t("page.listings.description")}
         </Text>
-        <Button>+ Přidat nabídku</Button>
+        <Link href="/pridat">
+          <Button>+ Přidat nabídku</Button>
+        </Link>
       </Flex>
       <ListingsSearch />
     </Stack>

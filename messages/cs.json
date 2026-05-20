@@ -35,6 +35,7 @@
     "add": {
       "title": "Přidat nabídku",
       "description": "Přidejte svůj inzerát do našeho bazaru. Získejte větší viditelnost pro své produkty a služby.",
+      "backToListings": "Zpět",
       "item": {
         "name": "Název věci",
         "placeholder": "Např. Konferenční stolek"
