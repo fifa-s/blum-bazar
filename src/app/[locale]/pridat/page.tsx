@@ -1,4 +1,4 @@
-import { Box, Group, Stack, Title } from "@mantine/core";
+import { Box, Stack, Title } from "@mantine/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { AddListingForm } from "@/components/ui/AddListingForm";
@@ -16,13 +16,11 @@ export default async function Page(_: PageProps<"/[locale]">) {
   const t = await getTranslations();
 
   return (
-    <Group align="flex-start" wrap="nowrap">
-      <Box w="100%" maw={600} pb="xl">
-        <Stack gap="md">
-          <Title>{t("page.add.title")}</Title>
-          <AddListingForm />
-        </Stack>
-      </Box>
-    </Group>
+    <Box w="100%" maw={600} pb="xl">
+      <Stack gap="md">
+        <Title>{t("page.add.title")}</Title>
+        <AddListingForm />
+      </Stack>
+    </Box>
   );
 }
