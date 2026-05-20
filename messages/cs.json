@@ -6,12 +6,65 @@
     "maintenance": {
       "title": "Údržba",
       "description": "Omlouváme se, ale náš systém je momentálně v údržbě. Pracujeme na zlepšení našich služeb a brzy budeme zpět online. Děkujeme za vaši trpělivost a pochopení."
+    },
+    "category": {
+      "all": "Všechny kategorie",
+      "electronics": "Elektronika",
+      "furniture": "Nábytek",
+      "clothing": "Oblečení",
+      "books": "Knihy",
+      "other": "Ostatní"
+    },
+    "listingState": {
+      "all": "Všechny stavy",
+      "available": "Dostupné",
+      "reserved": "Reservované",
+      "sold": "Prodáno"
+    },
+    "listingPrice": {
+      "all": "Všechny ceny",
+      "free": "Zdarma",
+      "paid": "Placené"
     }
   },
   "page": {
     "home": {
       "title": "Domovská stránka",
       "description": "Vítejte na naší domovské stránce! Jsme rádi, že jste zde. Prozkoumejte naše služby a produkty, které vám mohou pomoci dosáhnout vašich cílů. Neváhejte nás kontaktovat pro více informací."
+    },
+    "add": {
+      "title": "Přidat nabídku",
+      "description": "Přidejte svůj inzerát do našeho bazaru. Získejte větší viditelnost pro své produkty a služby.",
+      "item": {
+        "name": "Název věci",
+        "placeholder": "Např. Konferenční stolek"
+      },
+      "itemDescription": {
+        "name": "Popis",
+        "placeholder": "Popiš stav, rozměry, místo předání..."
+      },
+      "itemCategory": {
+        "name": "Kategorie",
+        "placeholder": "Vyberte kategorii"
+      },
+      "itemPrice": {
+        "name": "Cena",
+        "suffix": " Kč",
+        "free": "Nabídka je zdarma"
+      },
+      "contactName": {
+        "name": "Kontaktní osoba",
+        "placeholder": "Vaše jméno"
+      },
+      "contactEmail": {
+        "name": "E-mail",
+        "placeholder": "jmeno@example.com"
+      },
+      "listingState": {
+        "name": "Stav nabídky"
+      },
+      "paymentInfo": "Platba a předání si domluvíte přímo mezi sebou.",
+      "button": "Přidat nabídku"
     },
     "listings": {
       "title": "Inzeráty",
@@ -22,26 +75,7 @@
     "listingsSearch": {
       "placeholder": "Hledat nabídku...",
       "categoryPlaceholder": "Kategorie",
-      "statePlaceholder": "Stav",
-      "category": {
-        "all": "Všechny kategorie",
-        "electronics": "Elektronika",
-        "furniture": "Nábytek",
-        "clothing": "Oblečení",
-        "books": "Knihy",
-        "other": "Ostatní"
-      },
-      "state": {
-        "all": "Všechny stavy",
-        "available": "Dostupné",
-        "reserved": "Reservované",
-        "sold": "Prodáno"
-      },
-      "price": {
-        "all": "Všechny ceny",
-        "free": "Zdarma",
-        "paid": "Placené"
-      }
+      "statePlaceholder": "Stav"
     }
   }
 }
