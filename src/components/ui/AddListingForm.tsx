@@ -31,6 +31,7 @@ export function AddListingForm() {
       itemCategory: (value) => (value ? null : "Category is required"),
       contact: {
         email: validateEmail,
+        name: (value) => (value ? null : "Contact name is required"),
       },
     },
   });
@@ -115,7 +116,8 @@ export function AddListingForm() {
               label={t("page.add.itemPrice.name")}
               min={0}
               step={1}
-              suffix={t("page.add.itemPrice.suffix")}
+              prefix={t("common.currency.prefix")}
+              suffix={t("common.currency.suffix")}
               key={form.key("itemPrice")}
               {...form.getInputProps("itemPrice")}
               disabled={isFree}
@@ -137,6 +139,7 @@ export function AddListingForm() {
           </Group>
           <Group grow>
             <TextInput
+              withAsterisk
               label={t("page.add.contactName.name")}
               placeholder={t("page.add.contactName.placeholder")}
               key={form.key("contact.name")}

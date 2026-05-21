@@ -68,6 +68,13 @@ export async function POST(request: Request) {
       });
     }
 
+    if (body.contactName.trim() === "") {
+      return new Response(JSON.stringify({ ok: false, message: "Contact name is required." }), {
+        status: 400,
+        headers: { "Content-Type": "applicat  ion/json" },
+      });
+    }
+
     const categoryError = validateCategory(body.itemCategory);
     if (categoryError) {
       return new Response(JSON.stringify({ ok: false, message: categoryError }), {
