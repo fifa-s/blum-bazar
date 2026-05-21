@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { listings } from "@/db/schemas";
-import { validateEmail } from "@/helpers/validators";
+import { validateCategory, validateEmail, validatePrice } from "@/helpers/validators";
 
 export interface ListingsResponse {
   id: number;
@@ -68,15 +68,17 @@ export async function POST(request: Request) {
       });
     }
 
-    if (body.itemCategory.trim() === "") {
-      return new Response(JSON.stringify({ ok: false, message: "Item category is required." }), {
+    const categoryError = validateCategory(body.itemCategory);
+    if (categoryError) {
+      return new Response(JSON.stringify({ ok: false, message: categoryError }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
     }
 
-    if (body.itemPrice <= 0) {
-      return new Response(JSON.stringify({ ok: false, message: "Item price must be a positive number." }), {
+    const priceError = validatePrice(body.itemPrice);
+    if (priceError) {
+      return new Response(JSON.stringify({ ok: false, message: priceError }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
