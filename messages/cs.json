@@ -81,6 +81,10 @@
       "placeholder": "Hledat nabídku...",
       "categoryPlaceholder": "Kategorie",
       "statePlaceholder": "Stav"
+    },
+    "listingCard": {
+      "contactInfo": "Nabízí: ",
+      "detailButton": "Zobrazit detail"
     }
   }
 }
