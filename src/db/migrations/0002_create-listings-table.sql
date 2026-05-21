@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS `listings` (
   `itemCategory` TEXT NOT NULL,
   `itemPrice` INTEGER NOT NULL,
   `contactName` TEXT,
-  `contactEmail` TEXT,
+  `contactEmail` TEXT NOT NULL,
   `listingState` TEXT NOT NULL
 );
