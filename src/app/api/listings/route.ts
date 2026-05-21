@@ -61,6 +61,27 @@ export async function POST(request: Request) {
       });
     }
 
+    if (body.itemName.trim() === "") {
+      return new Response(JSON.stringify({ ok: false, message: "Item name is required." }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (body.itemCategory.trim() === "") {
+      return new Response(JSON.stringify({ ok: false, message: "Item category is required." }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (body.itemPrice <= 0) {
+      return new Response(JSON.stringify({ ok: false, message: "Item price must be a positive number." }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     await db.insert(listings).values({
       itemName: body.itemName,
       itemDescription: body.itemDescription,
