@@ -25,6 +25,10 @@
       "all": "Všechny ceny",
       "free": "Zdarma",
       "paid": "Placené"
+    },
+    "currency": {
+      "prefix": "",
+      "suffix": " Kč"
     }
   },
   "page": {
@@ -50,7 +54,6 @@
       },
       "itemPrice": {
         "name": "Cena",
-        "suffix": " Kč",
         "free": "Nabídka je zdarma"
       },
       "contactName": {

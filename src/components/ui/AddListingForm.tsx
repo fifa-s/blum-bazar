@@ -115,7 +115,8 @@ export function AddListingForm() {
               label={t("page.add.itemPrice.name")}
               min={0}
               step={1}
-              suffix={t("page.add.itemPrice.suffix")}
+              prefix={t("common.currency.prefix")}
+              suffix={t("common.currency.suffix")}
               key={form.key("itemPrice")}
               {...form.getInputProps("itemPrice")}
               disabled={isFree}
