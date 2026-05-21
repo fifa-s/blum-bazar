@@ -10,9 +10,10 @@ export function AddListingForm() {
   const t = useTranslations();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [isFree, setIsFree] = useState(false);
+  const [lastPrice, setLastPrice] = useState(0);
 
   const form = useForm({
-    mode: "uncontrolled",
     initialValues: {
       itemName: "",
       itemDescription: "",
@@ -117,8 +118,22 @@ export function AddListingForm() {
               suffix={t("page.add.itemPrice.suffix")}
               key={form.key("itemPrice")}
               {...form.getInputProps("itemPrice")}
+              disabled={isFree}
+              {...(isFree ? null : { withAsterisk: true })}
             />
-            <Checkbox label={t("page.add.itemPrice.free")} />
+            <Checkbox
+              label={t("page.add.itemPrice.free")}
+              onChange={(event) => {
+                const free = event.currentTarget.checked;
+                setIsFree(free);
+                if (free) {
+                  setLastPrice(form.values.itemPrice);
+                  form.setFieldValue("itemPrice", 0);
+                } else {
+                  form.setFieldValue("itemPrice", lastPrice);
+                }
+              }}
+            />
           </Group>
           <Group grow>
             <TextInput
