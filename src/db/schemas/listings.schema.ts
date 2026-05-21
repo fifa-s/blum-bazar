@@ -7,7 +7,7 @@ export const listings = sqliteTable("listings", {
   itemCategory: text().notNull(),
   itemPrice: integer().notNull(),
   contactName: text(),
-  contactEmail: text(),
+  contactEmail: text().notNull(),
   listingState: text().notNull(),
 });
 

@@ -143,6 +143,7 @@ export function AddListingForm() {
               {...form.getInputProps("contact.name")}
             />
             <TextInput
+              withAsterisk
               label={t("page.add.contactEmail.name")}
               placeholder={t("page.add.contactEmail.placeholder")}
               key={form.key("contact.email")}
