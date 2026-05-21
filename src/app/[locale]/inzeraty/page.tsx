@@ -40,7 +40,7 @@ export default async function Page(_: PageProps<"/[locale]">) {
           description={listing.itemDescription ?? ""}
           category={listing.itemCategory}
           price={listing.itemPrice}
-          contactName={listing.contactName ?? ""}
+          contactName={listing.contactName}
           state={listing.listingState}
         />
       ))}

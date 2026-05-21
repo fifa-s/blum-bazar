@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `listings` (
   `itemDescription` TEXT,
   `itemCategory` TEXT NOT NULL,
   `itemPrice` INTEGER NOT NULL,
-  `contactName` TEXT,
+  `contactName` TEXT NOT NULL,
   `contactEmail` TEXT NOT NULL,
   `listingState` TEXT NOT NULL
 );

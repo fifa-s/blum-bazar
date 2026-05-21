@@ -31,6 +31,7 @@ export function AddListingForm() {
       itemCategory: (value) => (value ? null : "Category is required"),
       contact: {
         email: validateEmail,
+        name: (value) => (value ? null : "Contact name is required"),
       },
     },
   });
@@ -138,6 +139,7 @@ export function AddListingForm() {
           </Group>
           <Group grow>
             <TextInput
+              withAsterisk
               label={t("page.add.contactName.name")}
               placeholder={t("page.add.contactName.placeholder")}
               key={form.key("contact.name")}
