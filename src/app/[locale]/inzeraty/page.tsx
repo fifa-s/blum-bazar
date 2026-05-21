@@ -1,4 +1,4 @@
-import { Button, Flex, Stack, Text, Title } from "@mantine/core";
+import { Button, Flex, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ListingCard } from "@/components/ui/ListingCard";
@@ -6,6 +6,7 @@ import { ListingsSearch } from "@/components/ui/ListingsSearch";
 import { db } from "@/db";
 import { listings } from "@/db/schemas/listings.schema";
 import { Link } from "@/i18n/navigation";
+import { isListingCategory, isListingState } from "@/types/listing";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations();
@@ -19,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page(_: PageProps<"/[locale]">) {
   const t = await getTranslations();
 
-  const listings_to_show = db.select().from(listings).all();
+  const listings_to_show = db.select().from(listings).limit(30).all();
 
   return (
     <Stack gap="md">
@@ -33,17 +34,24 @@ export default async function Page(_: PageProps<"/[locale]">) {
         </Link>
       </Flex>
       <ListingsSearch />
-      {listings_to_show.map((listing) => (
-        <ListingCard
-          key={listing.id}
-          itemName={listing.itemName}
-          description={listing.itemDescription ?? ""}
-          category={listing.itemCategory}
-          price={listing.itemPrice}
-          contactName={listing.contactName}
-          state={listing.listingState}
-        />
-      ))}
+      <SimpleGrid cols={{ base: 1, sm: 2, lg: 3 }} spacing="md">
+        {listings_to_show.map((listing) => {
+          const category = isListingCategory(listing.itemCategory) ? listing.itemCategory : "other";
+          const state = isListingState(listing.listingState) ? listing.listingState : "available";
+
+          return (
+            <ListingCard
+              key={listing.id}
+              itemName={listing.itemName}
+              description={listing.itemDescription ?? ""}
+              category={category}
+              price={listing.itemPrice}
+              contactName={listing.contactName}
+              state={state}
+            />
+          );
+        })}
+      </SimpleGrid>
     </Stack>
   );
 }
