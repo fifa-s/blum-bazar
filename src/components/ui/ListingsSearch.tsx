@@ -1,54 +1,72 @@
 "use client";
 
-import { Flex, Paper, SegmentedControl, Select, Stack, TextInput } from "@mantine/core";
+import { Group, Paper, SegmentedControl, Select, Stack, TextInput } from "@mantine/core";
 import { Search } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useCallback } from "react";
+import { useDebouncedCallback } from "use-debounce";
+import {
+  getListingCategorySelectOptions,
+  getListingPriceOptions,
+  getListingStateSelectOptions,
+} from "@/helpers/listing";
+import { usePathname, useRouter } from "@/i18n/navigation";
+
+export interface ListingsSearchState {
+  search: string;
+  category: string;
+  state: string;
+  price: string;
+}
 
 export function ListingsSearch() {
   const t = useTranslations();
 
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const updateParams = useCallback(
+    (key: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (value && (value !== "all" || key === "q")) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [router, pathname, searchParams],
+  );
+
+  const handleSearch = useDebouncedCallback((value: string) => updateParams("q", value), 300);
+
   return (
     <Paper radius="md" withBorder p="md">
       <Stack gap="md">
-        <Flex gap="md">
+        <Group grow gap="md">
           <TextInput
             placeholder={t("components.listingsSearch.placeholder")}
             leftSection={<Search size={16} />}
-            style={{ flex: 1 }}
+            onChange={(e) => handleSearch(e.target.value)}
           />
           <Select
-            style={{ flex: 1 }}
             placeholder={t("components.listingsSearch.categoryPlaceholder")}
-            data={[
-              { value: "all", label: t("common.category.all") },
-              { value: "electronics", label: t("common.category.electronics") },
-              { value: "furniture", label: t("common.category.furniture") },
-              { value: "clothing", label: t("common.category.clothing") },
-              { value: "books", label: t("common.category.books") },
-              { value: "other", label: t("common.category.other") },
-            ]}
+            data={getListingCategorySelectOptions(t)}
+            onChange={(value) => updateParams("category", value ?? "all")}
           />
           <Select
-            style={{ flex: 1 }}
             placeholder={t("components.listingsSearch.statePlaceholder")}
-            data={[
-              { value: "all", label: t("common.listingState.all") },
-              { value: "available", label: t("common.listingState.available") },
-              { value: "reserved", label: t("common.listingState.reserved") },
-              { value: "sold", label: t("common.listingState.sold") },
-            ]}
+            data={getListingStateSelectOptions(t)}
+            onChange={(value) => updateParams("state", value ?? "all")}
           />
-        </Flex>
-        <Flex>
-          <SegmentedControl
-            style={{ flex: 1 }}
-            data={[
-              { value: "all", label: t("common.listingPrice.all") },
-              { value: "free", label: t("common.listingPrice.free") },
-              { value: "paid", label: t("common.listingPrice.paid") },
-            ]}
-          />
-        </Flex>
+        </Group>
+        <SegmentedControl
+          fullWidth
+          data={getListingPriceOptions(t)}
+          onChange={(value) => updateParams("price", value ?? "all")}
+        />
       </Stack>
     </Paper>
   );
