@@ -1,4 +1,5 @@
 import { Button, Flex, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { and, eq, gt, like, or } from "drizzle-orm";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ListingCard } from "@/components/ui/ListingCard";
@@ -17,10 +18,57 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Page(_: PageProps<"/[locale]">) {
+interface FetchListingsParams {
+  query: string;
+  category: string;
+  state: string;
+  price: string;
+}
+
+function fetchListings({ query, category, state, price }: FetchListingsParams) {
+  const conditions = [];
+
+  // Full-text search across title and description
+  if (query) {
+    conditions.push(or(like(listings.itemName, `%${query}%`), like(listings.itemDescription, `%${query}%`)));
+  }
+
+  if (category && category !== "all") {
+    conditions.push(eq(listings.itemCategory, category));
+  }
+
+  if (state && state !== "all") {
+    conditions.push(eq(listings.listingState, state));
+  }
+
+  if (price && price !== "all") {
+    if (price === "free") {
+      conditions.push(eq(listings.itemPrice, 0));
+    } else if (price === "paid") {
+      conditions.push(gt(listings.itemPrice, 0));
+    }
+  }
+
+  const results = db
+    .select()
+    .from(listings)
+    .where(conditions.length > 0 ? and(...conditions) : undefined)
+    .limit(30)
+    .all();
+
+  return results;
+}
+
+export default async function Page(props: PageProps<"/[locale]/inzeraty">) {
   const t = await getTranslations();
 
-  const listings_to_show = db.select().from(listings).limit(30).all();
+  const searchParams = await props.searchParams;
+  const q = (searchParams.q as string) ?? "";
+  const category = (searchParams.category as string) ?? "all";
+  const state = (searchParams.state as string) ?? "all";
+  const price = (searchParams.price as string) ?? "all";
+
+  const listings_to_show = fetchListings({ query: q, category, state, price });
 
   return (
     <Stack gap="md">
