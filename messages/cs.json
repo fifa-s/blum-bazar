@@ -73,7 +73,8 @@
     },
     "listings": {
       "title": "Inzeráty",
-      "description": "Interní bazar Blogic Store. Nabízej věci kolegům k prodeji nebo zdarma. Platbu a předání si domluvíte přímo mezi sebou."
+      "description": "Interní bazar Blogic Store. Nabízej věci kolegům k prodeji nebo zdarma. Platbu a předání si domluvíte přímo mezi sebou.",
+      "buttonNewListing": "+ Přidat nabídku"
     }
   },
   "components": {

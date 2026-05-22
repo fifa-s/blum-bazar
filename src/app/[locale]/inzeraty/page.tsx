@@ -30,7 +30,7 @@ export default async function Page(_: PageProps<"/[locale]">) {
           {t("page.listings.description")}
         </Text>
         <Link href="/pridat">
-          <Button>+ Přidat nabídku</Button>
+          <Button>{t("page.listings.buttonNewListing")}</Button>
         </Link>
       </Flex>
       <ListingsSearch />
