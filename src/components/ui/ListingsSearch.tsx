@@ -40,7 +40,7 @@ export function ListingsSearch() {
     [router, pathname, searchParams],
   );
 
-  const handleSearch = useDebouncedCallback((value: string) => updateParams("q", value), 150);
+  const handleSearch = useDebouncedCallback((value: string) => updateParams("q", value), 300);
 
   return (
     <Paper radius="md" withBorder p="md">
