@@ -75,6 +75,11 @@
       "title": "Inzeráty",
       "description": "Interní bazar Blogic Store. Nabízej věci kolegům k prodeji nebo zdarma. Platbu a předání si domluvíte přímo mezi sebou.",
       "buttonNewListing": "+ Přidat nabídku"
+    },
+    "listingDetail": {
+      "title": "Detail nabídky",
+      "description": "Zde najdete všechny informace o této nabídce. Kontaktujte prodejce a domluvte se na platbě a předání.",
+      "backToListings": "Zpět na seznam"
     }
   },
   "components": {
@@ -86,6 +91,11 @@
     "listingCard": {
       "contactInfo": "Nabízí: ",
       "detailButton": "Zobrazit detail"
+    },
+    "listingDetailCard": {
+      "contactTitle": "Kontakt",
+      "contactDisclaimerTitle": "Platba a předávání",
+      "contactDisclaimer": "Platbu a předání si domluvíte mezi sebou – hotově nebo QR platbou."
     }
   }
 }
