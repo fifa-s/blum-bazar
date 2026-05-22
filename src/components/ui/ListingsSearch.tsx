@@ -49,22 +49,26 @@ export function ListingsSearch() {
           <TextInput
             placeholder={t("components.listingsSearch.placeholder")}
             leftSection={<Search size={16} />}
+            defaultValue={searchParams.get("q") ?? ""}
             onChange={(e) => handleSearch(e.target.value)}
           />
           <Select
             placeholder={t("components.listingsSearch.categoryPlaceholder")}
             data={getListingCategorySelectOptions(t)}
+            defaultValue={searchParams.get("category") ?? ""}
             onChange={(value) => updateParams("category", value ?? "all")}
           />
           <Select
             placeholder={t("components.listingsSearch.statePlaceholder")}
             data={getListingStateSelectOptions(t)}
+            defaultValue={searchParams.get("state") ?? ""}
             onChange={(value) => updateParams("state", value ?? "all")}
           />
         </Group>
         <SegmentedControl
           fullWidth
           data={getListingPriceOptions(t)}
+          defaultValue={searchParams.get("price") ?? ""}
           onChange={(value) => updateParams("price", value ?? "all")}
         />
       </Stack>
