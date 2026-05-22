@@ -4,6 +4,7 @@ import { Button, Checkbox, Group, NumberInput, Paper, Select, Stack, Text, Texta
 import { useForm } from "@mantine/form";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { getListingCategoryOptions, getListingStateOptions } from "@/helpers/listing";
 import { validateEmail } from "@/helpers/validators";
 
 export function AddListingForm() {
@@ -101,13 +102,7 @@ export function AddListingForm() {
             withAsterisk
             label={t("page.add.itemCategory.name")}
             placeholder={t("page.add.itemCategory.placeholder")}
-            data={[
-              { value: "electronics", label: t("common.category.electronics") },
-              { value: "furniture", label: t("common.category.furniture") },
-              { value: "clothing", label: t("common.category.clothing") },
-              { value: "books", label: t("common.category.books") },
-              { value: "other", label: t("common.category.other") },
-            ]}
+            data={getListingCategoryOptions(t)}
             key={form.key("itemCategory")}
             {...form.getInputProps("itemCategory")}
           />
@@ -156,11 +151,7 @@ export function AddListingForm() {
           <Select
             label={t("page.add.listingState.name")}
             placeholder={t("common.listingState.available")}
-            data={[
-              { value: "available", label: t("common.listingState.available") },
-              { value: "reserved", label: t("common.listingState.reserved") },
-              { value: "sold", label: t("common.listingState.sold") },
-            ]}
+            data={getListingStateOptions(t)}
             key={form.key("listingState")}
             {...form.getInputProps("listingState")}
           />

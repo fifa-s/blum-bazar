@@ -2,6 +2,7 @@
 
 import { Badge, Button, Card, Group, Text, Title } from "@mantine/core";
 import { useTranslations } from "next-intl";
+import { getListingCategoryLabel, getListingStateLabel } from "@/helpers/listing";
 import type { ListingCategory, ListingState } from "@/types/listing";
 
 export function ListingCard(props: {
@@ -14,22 +15,10 @@ export function ListingCard(props: {
 }) {
   const t = useTranslations();
 
-  const categoryLabels: Record<ListingCategory, string> = {
-    electronics: t("common.category.electronics"),
-    furniture: t("common.category.furniture"),
-    clothing: t("common.category.clothing"),
-    books: t("common.category.books"),
-    other: t("common.category.other"),
-  };
-
-  const stateLabels: Record<ListingState, string> = {
-    available: t("common.listingState.available"),
-    reserved: t("common.listingState.reserved"),
-    sold: t("common.listingState.sold"),
-  };
-
-  const categoryLabel = props.category ? categoryLabels[props.category] : categoryLabels.other;
-  const stateLabel = props.state ? stateLabels[props.state] : stateLabels.available;
+  const categoryLabel = props.category
+    ? getListingCategoryLabel(t, props.category)
+    : getListingCategoryLabel(t, "other");
+  const stateLabel = props.state ? getListingStateLabel(t, props.state) : getListingStateLabel(t, "available");
 
   const stateColor = props.state === "available" ? "green" : props.state === "reserved" ? "violet" : "black";
 
