@@ -6,6 +6,8 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { getListingCategoryOptions, getListingStateOptions } from "@/helpers/listing";
 import "@/helpers/validators";
+import type { FileWithPath } from "@mantine/dropzone";
+import { ImageDropZone } from "@/components/ui/ImageDropZone";
 import {
   validateContactName,
   validateEmail,
@@ -15,6 +17,7 @@ import {
   validatePrice,
   validateState,
 } from "@/helpers/validators";
+import { useRouter } from "@/i18n/navigation";
 
 export function AddListingForm() {
   const t = useTranslations();
@@ -22,6 +25,7 @@ export function AddListingForm() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [isFree, setIsFree] = useState(false);
   const [lastPrice, setLastPrice] = useState(0);
+  const [imageFile, setImageFile] = useState<FileWithPath | null>(null);
 
   const form = useForm({
     initialValues: {
@@ -49,25 +53,28 @@ export function AddListingForm() {
     },
   });
 
+  const router = useRouter();
+
   const handleSubmit = async (values: typeof form.values) => {
     setIsSubmitting(true);
     setServerError(null);
 
-    const payload = {
-      itemName: values.itemName.trim(),
-      itemDescription: values.itemDescription?.trim() || null,
-      itemCategory: values.itemCategory.trim(),
-      itemPrice: values.itemPrice,
-      contactName: values.contact.name.trim() || null,
-      contactEmail: values.contact.email.trim() || null,
-      listingState: values.listingState,
-    };
+    const formData = new FormData();
+    formData.append("itemName", values.itemName.trim());
+    formData.append("itemDescription", values.itemDescription?.trim() ?? "");
+    formData.append("itemCategory", values.itemCategory.trim());
+    formData.append("itemPrice", String(values.itemPrice));
+    formData.append("contactName", values.contact.name.trim());
+    formData.append("contactEmail", values.contact.email.trim());
+    formData.append("listingState", values.listingState);
+    if (imageFile) {
+      formData.append("image", imageFile, imageFile.name);
+    }
 
     try {
       const response = await fetch("/api/listings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: formData,
       });
 
       const data = await response.json();
@@ -78,7 +85,7 @@ export function AddListingForm() {
       }
 
       form.reset();
-      window.alert(t("page.add.successMessage") ?? "Listing created successfully.");
+      router.push(`/inzeraty/${data.id}`);
     } catch (_error) {
       setServerError("Network error, please try again.");
     } finally {
@@ -90,11 +97,6 @@ export function AddListingForm() {
     <Paper radius="md" withBorder p="md">
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack gap="md">
-          {serverError ? (
-            <Text c="red" size="sm">
-              {serverError}
-            </Text>
-          ) : null}
           <TextInput
             withAsterisk
             label={t("page.add.item.name")}
@@ -167,6 +169,7 @@ export function AddListingForm() {
             key={form.key("listingState")}
             {...form.getInputProps("listingState")}
           />
+          <ImageDropZone file={imageFile} onFileChange={setImageFile} />
           <Text size="xs" c="dimmed">
             {t("page.add.paymentInfo")}
           </Text>
@@ -175,6 +178,11 @@ export function AddListingForm() {
               {t("page.add.button")}
             </Button>
           </Group>
+          {serverError ? (
+            <Text c="red" size="sm">
+              {serverError}
+            </Text>
+          ) : null}
         </Stack>
       </form>
     </Paper>

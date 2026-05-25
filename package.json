@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@mantine/core": "^9.1.1",
+    "@mantine/dropzone": "^9.1.1",
     "@mantine/form": "^9.1.1",
     "@mantine/hooks": "^9.1.1",
     "@mantine/modals": "^9.1.1",
@@ -38,6 +39,7 @@
     "next-intl": "^4.11.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "sharp": "^0.34.5",
     "use-debounce": "^10.1.1"
   },
   "devDependencies": {
