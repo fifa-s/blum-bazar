@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Button, Card, Group, Text, Title } from "@mantine/core";
+import { Badge, Button, Card, Group, Image, Text, Title } from "@mantine/core";
 import { useTranslations } from "next-intl";
 import { getListingCategoryLabel, getListingStateLabel } from "@/helpers/listing";
 import type { ListingCategory, ListingState } from "@/types/listing";
@@ -13,6 +13,7 @@ export function ListingCard(props: {
   price?: number;
   contactName?: string;
   state?: ListingState;
+  imagePath?: string | null;
 }) {
   const t = useTranslations();
 
@@ -33,6 +34,16 @@ export function ListingCard(props: {
   // TODO: Image
   return (
     <Card radius="md" withBorder p="lg">
+      <Card.Section>
+        <Image
+          radius="md"
+          h={250}
+          width="auto"
+          src={props.imagePath ? `/api/images/${props.imagePath}` : "/empty-placeholder.png"}
+          fallbackSrc="/empty-placeholder.png"
+          alt="Image"
+        />
+      </Card.Section>
       <Card.Section px="md" py="xs">
         <Group justify="space-between">
           <Title order={4} flex={1} lineClamp={1}>

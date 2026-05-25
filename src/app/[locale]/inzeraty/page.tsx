@@ -97,6 +97,7 @@ export default async function Page(props: PageProps<"/[locale]/inzeraty">) {
               price={listing.itemPrice}
               contactName={listing.contactName}
               state={state}
+              imagePath={listing.imagePath}
             />
           );
         })}
