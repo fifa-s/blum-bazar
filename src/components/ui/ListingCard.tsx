@@ -6,6 +6,7 @@ import { getListingCategoryLabel, getListingStateLabel } from "@/helpers/listing
 import type { ListingCategory, ListingState } from "@/types/listing";
 
 export function ListingCard(props: {
+  id: number;
   itemName?: string;
   description?: string;
   category?: ListingCategory;
@@ -61,7 +62,9 @@ export function ListingCard(props: {
       </Card.Section>
       <Card.Section px="md" py="xs" mt="auto">
         <Group grow>
-          <Button variant="light">{t("components.listingCard.detailButton")}</Button>
+          <Button component="a" href={`/inzeraty/${props.id}`} variant="light">
+            {t("components.listingCard.detailButton")}
+          </Button>
         </Group>
       </Card.Section>
     </Card>

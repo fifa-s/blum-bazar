@@ -90,6 +90,7 @@ export default async function Page(props: PageProps<"/[locale]/inzeraty">) {
           return (
             <ListingCard
               key={listing.id}
+              id={listing.id}
               itemName={listing.itemName}
               description={listing.itemDescription ?? ""}
               category={category}
