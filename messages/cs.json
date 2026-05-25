@@ -96,6 +96,10 @@
       "contactTitle": "Kontakt",
       "contactDisclaimerTitle": "Platba a předávání",
       "contactDisclaimer": "Platbu a předání si domluvíte mezi sebou – hotově nebo QR platbou."
+    },
+    "imageDropZone": {
+      "title": "Přetáhněte sem obrázek nebo klikněte pro výběr souborů",
+      "description": "Připojte jeden soubor, který nesmí přesáhnout 5 MB."
     }
   }
 }

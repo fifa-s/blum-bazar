@@ -1,6 +1,17 @@
+import fs from "node:fs";
+import path from "node:path";
+import sharp from "sharp";
 import { db } from "@/db";
 import { listings } from "@/db/schemas";
-import { validateCategory, validateEmail, validatePrice } from "@/helpers/validators";
+import {
+  validateContactName,
+  validateEmail,
+  validateItemCategory,
+  validateItemDescription,
+  validateItemName,
+  validatePrice,
+  validateState,
+} from "@/helpers/validators";
 
 export interface ListingsResponse {
   id: number;
@@ -49,59 +60,92 @@ export function GET() {
   }
 }
 
+function sendError(message: string, status: number) {
+  return new Response(JSON.stringify({ ok: false, message }), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
+async function saveImage(file: File, listingId: number) {
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const filename = `${listingId}.webp`;
+  const uploadsDir = path.join(process.cwd(), "uploads");
+  const outputPath = path.join(uploadsDir, filename);
+
+  fs.mkdirSync(uploadsDir, { recursive: true });
+
+  return sharp(buffer)
+    .resize({ width: 1280, height: 720, withoutEnlargement: true, fit: "inside" })
+    .webp({ quality: 80 })
+    .toFile(outputPath);
+}
+
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const formData = await request.formData();
 
-    const emailError = validateEmail(body.contactEmail);
-    if (emailError) {
-      return new Response(JSON.stringify({ ok: false, message: emailError }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+    const itemName = formData.get("itemName") as string;
+    const itemDescription = formData.get("itemDescription") as string;
+    const itemCategory = formData.get("itemCategory") as string;
+    const itemPriceString = formData.get("itemPrice") as string;
+    const contactName = formData.get("contactName") as string;
+    const contactEmail = formData.get("contactEmail") as string;
+    const listingState = formData.get("listingState") as string;
+    const image = formData.get("image") as File | null;
+
+    const itemPrice = Number(itemPriceString);
+    if (Number.isNaN(itemPrice)) {
+      return sendError("Price must be a valid number.", 400);
     }
 
-    if (body.itemName.trim() === "") {
-      return new Response(JSON.stringify({ ok: false, message: "Item name is required." }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+    const itemNameError = validateItemName(itemName);
+    if (itemNameError) {
+      return sendError(itemNameError, 400);
     }
-
-    if (body.contactName.trim() === "") {
-      return new Response(JSON.stringify({ ok: false, message: "Contact name is required." }), {
-        status: 400,
-        headers: { "Content-Type": "applicat  ion/json" },
-      });
+    const itemDescriptionError = validateItemDescription(itemDescription);
+    if (itemDescriptionError) {
+      return sendError(itemDescriptionError, 400);
     }
-
-    const categoryError = validateCategory(body.itemCategory);
+    const categoryError = validateItemCategory(itemCategory);
     if (categoryError) {
-      return new Response(JSON.stringify({ ok: false, message: categoryError }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return sendError(categoryError, 400);
     }
-
-    const priceError = validatePrice(body.itemPrice);
+    const priceError = validatePrice(itemPrice);
     if (priceError) {
-      return new Response(JSON.stringify({ ok: false, message: priceError }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return sendError(priceError, 400);
+    }
+    const emailError = validateEmail(contactEmail);
+    if (emailError) {
+      return sendError(emailError, 400);
+    }
+    const contactNameError = validateContactName(contactName);
+    if (contactNameError) {
+      return sendError(contactNameError, 400);
+    }
+    const stateError = validateState(listingState);
+    if (stateError) {
+      return sendError(stateError, 400);
     }
 
-    await db.insert(listings).values({
-      itemName: body.itemName,
-      itemDescription: body.itemDescription,
-      itemCategory: body.itemCategory,
-      itemPrice: body.itemPrice,
-      contactName: body.contactName,
-      contactEmail: body.contactEmail,
-      listingState: body.listingState,
-    });
+    const [row] = await db
+      .insert(listings)
+      .values({
+        itemName: itemName,
+        itemDescription: itemDescription,
+        itemCategory: itemCategory,
+        itemPrice: itemPrice,
+        contactName: contactName,
+        contactEmail: contactEmail,
+        listingState: listingState,
+      })
+      .returning({ id: listings.id });
 
-    return new Response(JSON.stringify({ ok: true }), {
+    if (image) {
+      await saveImage(image, row.id);
+    }
+
+    return new Response(JSON.stringify({ ok: true, id: row.id }), {
       status: 201,
       headers: { "Content-Type": "application/json" },
     });
