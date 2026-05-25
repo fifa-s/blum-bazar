@@ -5,13 +5,6 @@ import path from "node:path";
 export async function GET(_req: Request, { params }: { params: Promise<{ filename: string }> }) {
   const { filename } = await params;
 
-  if (!/^\d+\.webp$/.test(filename)) {
-    return new Response(JSON.stringify({ ok: false, message: "Invalid filename." }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-
   const filePath = path.join(process.cwd(), "uploads", filename);
   if (!fs.existsSync(filePath)) {
     return new Response(JSON.stringify({ ok: false, message: "Image not found." }), {

@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
@@ -22,6 +23,7 @@ export interface ListingsResponse {
   contactName: string | null;
   contactEmail: string | null;
   listingState: string;
+  imagePath: string | null;
 }
 
 export function GET() {
@@ -36,6 +38,7 @@ export function GET() {
         contactName: listings.contactName,
         contactEmail: listings.contactEmail,
         listingState: listings.listingState,
+        imagePath: listings.imagePath,
       })
       .from(listings)
       .all();
@@ -49,6 +52,7 @@ export function GET() {
       contactName: l.contactName,
       contactEmail: l.contactEmail,
       listingState: l.listingState,
+      imagePath: l.imagePath,
     }));
 
     return Response.json(response);
@@ -67,9 +71,8 @@ function sendError(message: string, status: number) {
   });
 }
 
-async function saveImage(file: File, listingId: number) {
+async function saveImage(file: File, filename: string) {
   const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = `${listingId}.webp`;
   const uploadsDir = path.join(process.cwd(), "uploads");
   const outputPath = path.join(uploadsDir, filename);
 
@@ -128,6 +131,8 @@ export async function POST(request: Request) {
       return sendError(stateError, 400);
     }
 
+    const imagePath: string | null = image ? `${randomUUID()}.webp` : null;
+
     const [row] = await db
       .insert(listings)
       .values({
@@ -138,11 +143,12 @@ export async function POST(request: Request) {
         contactName: contactName,
         contactEmail: contactEmail,
         listingState: listingState,
+        imagePath: imagePath,
       })
       .returning({ id: listings.id });
 
-    if (image) {
-      await saveImage(image, row.id);
+    if (image && imagePath) {
+      await saveImage(image, imagePath);
     }
 
     return new Response(JSON.stringify({ ok: true, id: row.id }), {

@@ -34,12 +34,13 @@ export default async function Page(props: PageProps<"/[locale]/inzeraty/[id]">) 
 
   return (
     <Stack gap="lg">
+      <p>{listing.imagePath ? `/api/images/${listing.imagePath}` : "/empty-placeholder.png"}</p>
       <BackButton href="/inzeraty">{t("page.listingDetail.backToListings")}</BackButton>
       <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
         <Image
           radius="md"
           mah={1000}
-          src={`/api/images/${listing.id}.webp`}
+          src={listing.imagePath ? `/api/images/${listing.imagePath}` : "/empty-placeholder.png"}
           fallbackSrc="/empty-placeholder.png"
           alt="Image"
         />
