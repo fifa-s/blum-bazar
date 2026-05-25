@@ -36,7 +36,13 @@ export default async function Page(props: PageProps<"/[locale]/inzeraty/[id]">) 
     <Stack gap="lg">
       <BackButton href="/inzeraty">{t("page.listingDetail.backToListings")}</BackButton>
       <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-        <Image src="/empty-placeholder.png" alt="Listing Details" />
+        <Image
+          radius="md"
+          mah={1000}
+          src={`/api/images/${listing.id}.webp`}
+          fallbackSrc="/empty-placeholder.png"
+          alt="Image"
+        />
         <ListingDetailCard
           itemName={listing.itemName}
           description={listing.itemDescription ?? ""}
