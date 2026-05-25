@@ -1,6 +1,14 @@
 import { db } from "@/db";
 import { listings } from "@/db/schemas";
-import { validateCategory, validateEmail, validatePrice } from "@/helpers/validators";
+import {
+  validateContactName,
+  validateEmail,
+  validateItemCategory,
+  validateItemDescription,
+  validateItemName,
+  validatePrice,
+  validateState,
+} from "@/helpers/validators";
 
 export interface ListingsResponse {
   id: number;
@@ -49,46 +57,44 @@ export function GET() {
   }
 }
 
+function sendError(message: string, status: number) {
+  return new Response(JSON.stringify({ ok: false, message }), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const emailError = validateEmail(body.contactEmail);
-    if (emailError) {
-      return new Response(JSON.stringify({ ok: false, message: emailError }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+    const itemNameError = validateItemName(body.itemName);
+    if (itemNameError) {
+      return sendError(itemNameError, 400);
     }
-
-    if (body.itemName.trim() === "") {
-      return new Response(JSON.stringify({ ok: false, message: "Item name is required." }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+    const itemDescriptionError = validateItemDescription(body.itemDescription);
+    if (itemDescriptionError) {
+      return sendError(itemDescriptionError, 400);
     }
-
-    if (body.contactName.trim() === "") {
-      return new Response(JSON.stringify({ ok: false, message: "Contact name is required." }), {
-        status: 400,
-        headers: { "Content-Type": "applicat  ion/json" },
-      });
-    }
-
-    const categoryError = validateCategory(body.itemCategory);
+    const categoryError = validateItemCategory(body.itemCategory);
     if (categoryError) {
-      return new Response(JSON.stringify({ ok: false, message: categoryError }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return sendError(categoryError, 400);
     }
-
     const priceError = validatePrice(body.itemPrice);
     if (priceError) {
-      return new Response(JSON.stringify({ ok: false, message: priceError }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return sendError(priceError, 400);
+    }
+    const emailError = validateEmail(body.contactEmail);
+    if (emailError) {
+      return sendError(emailError, 400);
+    }
+    const contactNameError = validateContactName(body.contactName);
+    if (contactNameError) {
+      return sendError(contactNameError, 400);
+    }
+    const stateError = validateState(body.listingState);
+    if (stateError) {
+      return sendError(stateError, 400);
     }
 
     await db.insert(listings).values({

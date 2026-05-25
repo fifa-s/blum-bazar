@@ -5,7 +5,16 @@ import { useForm } from "@mantine/form";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { getListingCategoryOptions, getListingStateOptions } from "@/helpers/listing";
-import { validateEmail } from "@/helpers/validators";
+import "@/helpers/validators";
+import {
+  validateContactName,
+  validateEmail,
+  validateItemCategory,
+  validateItemDescription,
+  validateItemName,
+  validatePrice,
+  validateState,
+} from "@/helpers/validators";
 
 export function AddListingForm() {
   const t = useTranslations();
@@ -28,12 +37,15 @@ export function AddListingForm() {
     },
 
     validate: {
-      itemName: (value) => (value ? null : "Item name is required"),
-      itemCategory: (value) => (value ? null : "Category is required"),
+      itemName: validateItemName,
+      itemDescription: validateItemDescription,
+      itemCategory: validateItemCategory,
+      itemPrice: validatePrice,
       contact: {
         email: validateEmail,
-        name: (value) => (value ? null : "Contact name is required"),
+        name: validateContactName,
       },
+      listingState: validateState,
     },
   });
 
