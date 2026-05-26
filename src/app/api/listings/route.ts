@@ -174,14 +174,14 @@ export interface UpdateListingRequest {
   listingState?: string;
 }
 
-export async function PUT(request: Request) {
+export async function PUT(_: Request) {
   return new Response(JSON.stringify({ ok: false, message: "Not implemented." }), {
     status: 501,
     headers: { "Content-Type": "application/json" },
   });
 }
 
-export async function DELETE(request: Request) {
+export async function DELETE(_: Request) {
   return new Response(JSON.stringify({ ok: false, message: "Not implemented." }), {
     status: 501,
     headers: { "Content-Type": "application/json" },
