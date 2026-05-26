@@ -39,7 +39,7 @@ export default async function Page(props: PageProps<"/[locale]/inzeraty/[id]">) 
         <Image
           radius="md"
           mah={1000}
-          src={`/api/images/${listing.id}.webp`}
+          src={listing.imagePath ? `/api/images/${listing.imagePath}` : "/empty-placeholder.png"}
           fallbackSrc="/empty-placeholder.png"
           alt="Image"
         />

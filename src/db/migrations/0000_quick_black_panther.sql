@@ -6,5 +6,11 @@ CREATE TABLE `listings` (
 	`itemPrice` integer NOT NULL,
 	`contactName` text NOT NULL,
 	`contactEmail` text NOT NULL,
-	`listingState` text NOT NULL
+	`listingState` text NOT NULL,
+	`imagePath` text
+);
+--> statement-breakpoint
+CREATE TABLE `systemSetting` (
+	`name` text PRIMARY KEY NOT NULL,
+	`value` text NOT NULL
 );
