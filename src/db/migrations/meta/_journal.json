@@ -8,6 +8,13 @@
       "when": 1779720108431,
       "tag": "0000_quick_black_panther",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1779785520388,
+      "tag": "0001_sudden_human_fly",
+      "breakpoints": true
     }
   ]
 }

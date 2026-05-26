@@ -162,3 +162,28 @@ export async function POST(request: Request) {
     });
   }
 }
+
+export interface UpdateListingRequest {
+  id: number;
+  itemName?: string;
+  itemDescription?: string;
+  itemCategory?: string;
+  itemPrice?: number;
+  contactName?: string;
+  contactEmail?: string;
+  listingState?: string;
+}
+
+export async function PUT(_: Request) {
+  return new Response(JSON.stringify({ ok: false, message: "Not implemented." }), {
+    status: 501,
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
+export async function DELETE(_: Request) {
+  return new Response(JSON.stringify({ ok: false, message: "Not implemented." }), {
+    status: 501,
+    headers: { "Content-Type": "application/json" },
+  });
+}

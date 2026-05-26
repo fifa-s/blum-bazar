@@ -95,7 +95,9 @@
     "listingDetailCard": {
       "contactTitle": "Kontakt",
       "contactDisclaimerTitle": "Platba a předávání",
-      "contactDisclaimer": "Platbu a předání si domluvíte mezi sebou – hotově nebo QR platbou."
+      "contactDisclaimer": "Platbu a předání si domluvíte mezi sebou – hotově nebo QR platbou.",
+      "reserveButton": "Rezervovat",
+      "markAsSold": "Označit jako prodané"
     },
     "imageDropZone": {
       "title": "Přetáhněte sem obrázek nebo klikněte pro výběr souborů",

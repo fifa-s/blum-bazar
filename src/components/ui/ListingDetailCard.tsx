@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { getListingCategoryLabel, getListingStateLabel } from "@/helpers/listing";
 import type { ListingCategory, ListingState } from "@/types/listing";
 
-export function ListingDetailCard(props: {
+type ListingDetailCardProps = {
   itemName?: string;
   description?: string;
   category?: ListingCategory;
@@ -14,7 +14,9 @@ export function ListingDetailCard(props: {
   contactName?: string;
   contactEmail?: string;
   state?: ListingState;
-}) {
+};
+
+export function ListingDetailCard(props: ListingDetailCardProps) {
   const t = useTranslations();
 
   const categoryLabel = props.category
@@ -75,8 +77,11 @@ export function ListingDetailCard(props: {
         </Stack>
       </Card.Section>
       <Card.Section px="md" py="xs">
-        <Group grow>
-          <Button variant="light">{t("components.listingCard.detailButton")}</Button>
+        <Group>
+          <Button variant="light">{t("components.listingDetailCard.reserveButton")}</Button>
+          <Button variant="outline" color="black">
+            {t("components.listingDetailCard.markAsSold")}
+          </Button>
         </Group>
       </Card.Section>
     </Card>

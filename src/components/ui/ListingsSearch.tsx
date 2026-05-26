@@ -68,7 +68,7 @@ export function ListingsSearch() {
         <SegmentedControl
           fullWidth
           data={getListingPriceOptions(t)}
-          defaultValue={searchParams.get("price") ?? ""}
+          defaultValue={searchParams.get("price") ?? "all"}
           onChange={(value) => updateParams("price", value ?? "all")}
         />
       </Stack>
