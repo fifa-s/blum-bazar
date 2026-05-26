@@ -23,7 +23,7 @@ import { validateEmail } from "@/helpers/validators";
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/dashboard";
+  const callbackUrl = searchParams.get("callbackUrl") ?? "/inzeraty";
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

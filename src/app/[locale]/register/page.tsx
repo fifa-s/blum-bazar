@@ -64,13 +64,13 @@ export default function RegisterPage() {
     if (result?.error) {
       router.push("/login");
     } else {
-      router.push("/dashboard");
+      router.push("/inzeraty");
     }
   }
 
   async function handleGoogle() {
     setGoogleLoading(true);
-    await signIn("google", { redirectTo: "/dashboard" });
+    await signIn("google", { redirectTo: "/inzeraty" });
   }
 
   return (
