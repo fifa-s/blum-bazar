@@ -80,6 +80,35 @@
       "title": "Detail nabídky",
       "description": "Zde najdete všechny informace o této nabídce. Kontaktujte prodejce a domluvte se na platbě a předání.",
       "backToListings": "Zpět na seznam"
+    },
+    "auth": {
+      "common": {
+        "backToListings": "Zpět na inzeráty",
+        "googleButton": "Pokračovat s Googlem",
+        "emailTitle": "E-mail",
+        "emailPlaceholder": "vy@example.com",
+        "passwordTitle": "Heslo",
+        "passwordPlaceholder": "Vaše heslo"
+      },
+      "login": {
+        "title": "Vítejte zpět",
+        "subtitle": "Přihlaste se ke svému účtu.",
+        "dividerLabel": "nebo přihlásit se pomocí e-mailu",
+        "footerText": "Nemáte účet?",
+        "footerLinkLabel": "Vytvořit účet",
+        "submitButtonLabel": "Přihlásit se",
+        "forgotPassword": "Zapomněli jste heslo?"
+      },
+      "register": {
+        "title": "Vytvořit účet",
+        "subtitle": "Vytvořte si nový účet.",
+        "dividerLabel": "nebo zaregistrovat se pomocí e-mailu",
+        "footerText": "Již máte účet?",
+        "footerLinkLabel": "Přihlásit se",
+        "submitButtonLabel": "Vytvořit účet",
+        "nameTitle": "Jméno",
+        "namePlaceholder": "Vaše jméno"
+      }
     }
   },
   "components": {
