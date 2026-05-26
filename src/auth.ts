@@ -6,6 +6,7 @@ import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { db } from "@/db";
 import { accounts, sessions, users, verificationTokens } from "@/db/schemas";
+import { env } from "../env.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: DrizzleAdapter(db, {
@@ -16,8 +17,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   }),
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: env.google.clientId,
+      clientSecret: env.google.clientSecret,
     }),
     Credentials({
       credentials: {
