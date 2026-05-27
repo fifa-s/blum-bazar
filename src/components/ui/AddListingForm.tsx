@@ -7,6 +7,7 @@ import { useState } from "react";
 import { getListingCategoryOptions, getListingStateOptions } from "@/helpers/listing";
 import "@/helpers/validators";
 import type { FileWithPath } from "@mantine/dropzone";
+import type { DefaultSession } from "next-auth";
 import { ImageDropZone } from "@/components/ui/ImageDropZone";
 import {
   validateContactName,
@@ -19,7 +20,7 @@ import {
 } from "@/helpers/validators";
 import { useRouter } from "@/i18n/navigation";
 
-export function AddListingForm() {
+export function AddListingForm(props: { session: DefaultSession }) {
   const t = useTranslations();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -27,15 +28,18 @@ export function AddListingForm() {
   const [lastPrice, setLastPrice] = useState(0);
   const [imageFile, setImageFile] = useState<FileWithPath | null>(null);
 
+  const user = props.session.user;
+
   const form = useForm({
+    validateInputOnChange: true,
     initialValues: {
       itemName: "",
       itemDescription: "",
       itemCategory: "",
       itemPrice: 0,
       contact: {
-        name: "",
-        email: "",
+        name: user?.name ?? "",
+        email: user?.email ?? "",
       },
       listingState: "available",
     },
@@ -70,6 +74,9 @@ export function AddListingForm() {
     if (imageFile) {
       formData.append("image", imageFile, imageFile.name);
     }
+    formData.append("authorId", user?.id as string);
+
+    console.log(user);
 
     try {
       const response = await fetch("/api/listings", {
@@ -92,6 +99,8 @@ export function AddListingForm() {
       setIsSubmitting(false);
     }
   };
+
+  const isFormValid = form.isValid();
 
   return (
     <Paper radius="md" withBorder p="md">
@@ -174,7 +183,7 @@ export function AddListingForm() {
             {t("page.add.paymentInfo")}
           </Text>
           <Group justify="flex-end">
-            <Button type="submit" loading={isSubmitting}>
+            <Button type="submit" loading={isSubmitting} disabled={!isFormValid || isSubmitting}>
               {t("page.add.button")}
             </Button>
           </Group>

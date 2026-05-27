@@ -15,6 +15,13 @@
       "when": 1779785520388,
       "tag": "0001_sudden_human_fly",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1779867158237,
+      "tag": "0002_next_lorna_dane",
+      "breakpoints": true
     }
   ]
 }
