@@ -28,7 +28,7 @@ export default async function Page(_: PageProps<"/[locale]">) {
         <BackButton href="/inzeraty">{t("page.add.backToListings")}</BackButton>
       </Group>
       <Box w="100%" maw={600} pb="xl">
-        <AddListingForm />
+        <AddListingForm session={session} />
       </Box>
     </Stack>
   );

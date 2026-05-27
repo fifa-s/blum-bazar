@@ -1,9 +1,10 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { eq } from "drizzle-orm";
 import sharp from "sharp";
 import { db } from "@/db";
-import { listings } from "@/db/schemas";
+import { listings, users } from "@/db/schemas";
 import {
   validateContactName,
   validateEmail,
@@ -65,7 +66,7 @@ export function GET() {
 }
 
 function sendError(message: string, status: number) {
-  return new Response(JSON.stringify({ ok: false, message }), {
+  return new Response(JSON.stringify({ ok: false, error: message }), {
     status,
     headers: { "Content-Type": "application/json" },
   });
@@ -84,6 +85,11 @@ async function saveImage(file: File, filename: string) {
     .toFile(outputPath);
 }
 
+export function log<T extends Record<string, unknown>>(obj: T): void {
+  const key = Object.keys(obj)[0];
+  console.log("LOG", `${key}:`, obj[key]);
+}
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -96,6 +102,17 @@ export async function POST(request: Request) {
     const contactEmail = formData.get("contactEmail") as string;
     const listingState = formData.get("listingState") as string;
     const image = formData.get("image") as File | null;
+    const authorId = formData.get("authorId") as string;
+
+    if (authorId == null || authorId === "undefined") {
+      return sendError("authorId is required", 400);
+    }
+
+    const result = await db.select({ id: users.id }).from(users).where(eq(users.id, authorId)).limit(1);
+
+    if (result.length <= 0) {
+      return sendError("Invalid AuthorId", 400);
+    }
 
     const itemPrice = Number(itemPriceString);
     if (Number.isNaN(itemPrice)) {
@@ -144,6 +161,7 @@ export async function POST(request: Request) {
         contactEmail: contactEmail,
         listingState: listingState,
         imagePath: imagePath,
+        authorId: authorId,
       })
       .returning({ id: listings.id });
 
@@ -155,7 +173,8 @@ export async function POST(request: Request) {
       status: 201,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (_error) {
+  } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify({ ok: false, message: "Could not create listing." }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
