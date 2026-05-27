@@ -124,7 +124,9 @@ export function AppHeader({
     >
       <Group h="100%" px="md" justify="space-between" wrap="nowrap" style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Left — logo */}
-        <PageLogo />
+        <Link href="https://www.blogic.cz/">
+          <PageLogo />
+        </Link>
 
         {/* Middle — nav links */}
         <Group gap={4} visibleFrom="sm">
