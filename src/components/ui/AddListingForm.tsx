@@ -7,7 +7,7 @@ import { useState } from "react";
 import { getListingCategoryOptions, getListingStateOptions } from "@/helpers/listing";
 import "@/helpers/validators";
 import type { FileWithPath } from "@mantine/dropzone";
-import type { DefaultSession } from "next-auth";
+import type { User } from "next-auth";
 import { ImageDropZone } from "@/components/ui/ImageDropZone";
 import {
   validateContactName,
@@ -20,15 +20,13 @@ import {
 } from "@/helpers/validators";
 import { useRouter } from "@/i18n/navigation";
 
-export function AddListingForm(props: { session: DefaultSession }) {
+export function AddListingForm(props: { user: User }) {
   const t = useTranslations();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [isFree, setIsFree] = useState(false);
   const [lastPrice, setLastPrice] = useState(0);
   const [imageFile, setImageFile] = useState<FileWithPath | null>(null);
-
-  const user = props.session.user;
 
   const form = useForm({
     validateInputOnChange: true,
@@ -38,8 +36,8 @@ export function AddListingForm(props: { session: DefaultSession }) {
       itemCategory: "",
       itemPrice: 0,
       contact: {
-        name: user?.name ?? "",
-        email: user?.email ?? "",
+        name: props.user.name ?? "",
+        email: props.user.email ?? "",
       },
       listingState: "available",
     },
@@ -74,9 +72,7 @@ export function AddListingForm(props: { session: DefaultSession }) {
     if (imageFile) {
       formData.append("image", imageFile, imageFile.name);
     }
-    formData.append("authorId", user?.id as string);
-
-    console.log(user);
+    formData.append("authorId", props.user.id as string);
 
     try {
       const response = await fetch("/api/listings", {

@@ -3,10 +3,17 @@
 import { Alert, Badge, Button, Card, Group, Stack, Text, Title } from "@mantine/core";
 import { AlertCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useTransition } from "react";
+import { cancelReservation, markListingAsSold, relisting, reserveListing } from "@/actions/listing";
 import { getListingCategoryLabel, getListingStateLabel } from "@/helpers/listing";
+import { useRouter } from "@/i18n/navigation";
 import type { ListingCategory, ListingState } from "@/types/listing";
 
 type ListingDetailCardProps = {
+  listingId: number;
+  currentUserId?: string; // (undefined = not signed in)
+  authorId: string;
+  reservedById?: string;
   itemName?: string;
   description?: string;
   category?: ListingCategory;
@@ -18,6 +25,28 @@ type ListingDetailCardProps = {
 
 export function ListingDetailCard(props: ListingDetailCardProps) {
   const t = useTranslations();
+
+  const router = useRouter();
+
+  const [isPending, startTransition] = useTransition();
+
+  const isAuthor = props.currentUserId === props.authorId;
+  const isReserver = props.currentUserId === props.reservedById;
+  const isAvailable = props.state === "available";
+  const isReserved = props.state === "reserved";
+  const isSold = props.state === "sold";
+
+  const run = (action: () => Promise<void>) => {
+    startTransition(async () => {
+      await action();
+      router.refresh(); // ← re-fetches server data, updates the badge
+    });
+  };
+
+  const handleReserve = () => run(() => reserveListing(props.listingId));
+  const handleCancelReservation = () => run(() => cancelReservation(props.listingId));
+  const handleMarkAsSold = () => run(() => markListingAsSold(props.listingId));
+  const handleRelisting = () => run(() => relisting(props.listingId));
 
   const categoryLabel = props.category
     ? getListingCategoryLabel(t, props.category)
@@ -78,10 +107,33 @@ export function ListingDetailCard(props: ListingDetailCardProps) {
       </Card.Section>
       <Card.Section px="md" py="xs">
         <Group>
-          <Button variant="light">{t("components.listingDetailCard.reserveButton")}</Button>
-          <Button variant="outline" color="black">
-            {t("components.listingDetailCard.markAsSold")}
-          </Button>
+          {/* Available → Reserved (any signed-in user) */}
+          {isAvailable && props.currentUserId && (
+            <Button variant="light" onClick={handleReserve} loading={isPending}>
+              {t("components.listingDetailCard.reserveButton")}
+            </Button>
+          )}
+
+          {/* Reserved → Available (reserver or author) */}
+          {isReserved && (isReserver || isAuthor) && (
+            <Button variant="light" color="orange" onClick={handleCancelReservation} loading={isPending}>
+              {t("components.listingDetailCard.cancelReservationButton")}
+            </Button>
+          )}
+
+          {/* Available/Reserved → Sold (author only) */}
+          {(isAvailable || isReserved) && isAuthor && (
+            <Button variant="outline" color="black" onClick={handleMarkAsSold} loading={isPending}>
+              {t("components.listingDetailCard.markAsSold")}
+            </Button>
+          )}
+
+          {/* Sold → Available (author only) */}
+          {isSold && isAuthor && (
+            <Button variant="outline" color="orange" onClick={handleRelisting} loading={isPending}>
+              {t("components.listingDetailCard.relistButton")}
+            </Button>
+          )}
         </Group>
       </Card.Section>
     </Card>

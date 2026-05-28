@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { auth } from "@/auth";
 import { BackButton } from "@/components/ui/BackButton";
 import { ListingDetailCard } from "@/components/ui/ListingDetailCard";
 import { db } from "@/db";
@@ -20,6 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page(props: PageProps<"/[locale]/inzeraty/[id]">) {
   const t = await getTranslations();
+
+  const session = await auth();
 
   const id = Number((await props.params).id);
 
@@ -44,6 +47,9 @@ export default async function Page(props: PageProps<"/[locale]/inzeraty/[id]">) 
           alt="Image"
         />
         <ListingDetailCard
+          listingId={id}
+          currentUserId={session?.user?.id}
+          authorId={listing.authorId}
           itemName={listing.itemName}
           description={listing.itemDescription ?? ""}
           category={category}

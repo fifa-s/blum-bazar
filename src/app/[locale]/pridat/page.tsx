@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Page(_: PageProps<"/[locale]">) {
   const session = await auth();
-  if (!session) redirect("/login");
+  if (!session?.user?.id) redirect("/login");
 
   const t = await getTranslations();
 
@@ -28,7 +28,7 @@ export default async function Page(_: PageProps<"/[locale]">) {
         <BackButton href="/inzeraty">{t("page.add.backToListings")}</BackButton>
       </Group>
       <Box w="100%" maw={600} pb="xl">
-        <AddListingForm session={session} />
+        <AddListingForm user={session.user} />
       </Box>
     </Stack>
   );

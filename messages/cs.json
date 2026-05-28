@@ -126,7 +126,9 @@
       "contactDisclaimerTitle": "Platba a předávání",
       "contactDisclaimer": "Platbu a předání si domluvíte mezi sebou – hotově nebo QR platbou.",
       "reserveButton": "Rezervovat",
-      "markAsSold": "Označit jako prodané"
+      "markAsSold": "Označit jako prodané",
+      "cancelReservationButton": "Zrušit rezervaci",
+      "relistButton": "Označit jako dostupné"
     },
     "imageDropZone": {
       "title": "Přetáhněte sem obrázek nebo klikněte pro výběr souborů",
