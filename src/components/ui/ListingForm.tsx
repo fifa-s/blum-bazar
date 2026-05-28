@@ -18,29 +18,55 @@ import {
   validatePrice,
   validateState,
 } from "@/helpers/validators";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 
-export function AddListingForm(props: { user: User }) {
+export type ListingInitVals = {
+  itemName: string;
+  itemDescription: string;
+  itemCategory: string;
+  itemPrice: number;
+  contact: {
+    name: string;
+    email: string;
+  };
+  listingState: string;
+};
+
+export type EditListingProps = {
+  initVals: ListingInitVals;
+  image?: string | null;
+  id: number;
+};
+
+export function ListingForm(props: { user: User; editProps?: EditListingProps }) {
   const t = useTranslations();
+
+  const [isFree, setIsFree] = useState(props.editProps?.initVals.itemPrice === 0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-  const [isFree, setIsFree] = useState(false);
   const [lastPrice, setLastPrice] = useState(0);
+
   const [imageFile, setImageFile] = useState<FileWithPath | null>(null);
+
+  const isEditing = props.editProps !== undefined;
+
+  const initVals = props.editProps
+    ? props.editProps.initVals
+    : {
+        itemName: "",
+        itemDescription: "",
+        itemCategory: "",
+        itemPrice: 0,
+        contact: {
+          name: props.user.name ?? "",
+          email: props.user.email ?? "",
+        },
+        listingState: "available",
+      };
 
   const form = useForm({
     validateInputOnChange: true,
-    initialValues: {
-      itemName: "",
-      itemDescription: "",
-      itemCategory: "",
-      itemPrice: 0,
-      contact: {
-        name: props.user.name ?? "",
-        email: props.user.email ?? "",
-      },
-      listingState: "available",
-    },
+    initialValues: initVals,
 
     validate: {
       itemName: validateItemName,
@@ -69,14 +95,19 @@ export function AddListingForm(props: { user: User }) {
     formData.append("contactName", values.contact.name.trim());
     formData.append("contactEmail", values.contact.email.trim());
     formData.append("listingState", values.listingState);
+    formData.append("authorId", props.user.id as string);
     if (imageFile) {
       formData.append("image", imageFile, imageFile.name);
+    } else if (isEditing) {
+      formData.append("keepImage", "true");
     }
-    formData.append("authorId", props.user.id as string);
+
+    const url = isEditing ? `/api/listings/${props.editProps?.id}` : "/api/listings";
+    const method = isEditing ? "PUT" : "POST";
 
     try {
-      const response = await fetch("/api/listings", {
-        method: "POST",
+      const response = await fetch(url, {
+        method,
         body: formData,
       });
 
@@ -87,7 +118,7 @@ export function AddListingForm(props: { user: User }) {
         return;
       }
 
-      form.reset();
+      if (!isEditing) form.reset();
       router.push(`/inzeraty/${data.id}`);
     } catch (_error) {
       setServerError("Network error, please try again.");
@@ -95,6 +126,8 @@ export function AddListingForm(props: { user: User }) {
       setIsSubmitting(false);
     }
   };
+
+  const imagePath = props.editProps?.image ? `/api/images/${props.editProps?.image}` : null;
 
   const isFormValid = form.isValid();
 
@@ -104,14 +137,14 @@ export function AddListingForm(props: { user: User }) {
         <Stack gap="md">
           <TextInput
             withAsterisk
-            label={t("page.add.item.name")}
-            placeholder={t("page.add.item.placeholder")}
+            label={t("components.listingForm.item.name")}
+            placeholder={t("components.listingForm.item.placeholder")}
             key={form.key("itemName")}
             {...form.getInputProps("itemName")}
           />
           <Textarea
-            label={t("page.add.itemDescription.name")}
-            placeholder={t("page.add.itemDescription.placeholder")}
+            label={t("components.listingForm.itemDescription.name")}
+            placeholder={t("components.listingForm.itemDescription.placeholder")}
             autosize
             minRows={3}
             key={form.key("itemDescription")}
@@ -119,15 +152,15 @@ export function AddListingForm(props: { user: User }) {
           />
           <Select
             withAsterisk
-            label={t("page.add.itemCategory.name")}
-            placeholder={t("page.add.itemCategory.placeholder")}
+            label={t("components.listingForm.itemCategory.name")}
+            placeholder={t("components.listingForm.itemCategory.placeholder")}
             data={getListingCategoryOptions(t)}
             key={form.key("itemCategory")}
             {...form.getInputProps("itemCategory")}
           />
           <Group grow align="flex-end">
             <NumberInput
-              label={t("page.add.itemPrice.name")}
+              label={t("components.listingForm.itemPrice.name")}
               min={0}
               step={1}
               prefix={t("common.currency.prefix")}
@@ -138,7 +171,7 @@ export function AddListingForm(props: { user: User }) {
               {...(isFree ? null : { withAsterisk: true })}
             />
             <Checkbox
-              label={t("page.add.itemPrice.free")}
+              label={t("components.listingForm.itemPrice.free")}
               onChange={(event) => {
                 const free = event.currentTarget.checked;
                 setIsFree(free);
@@ -154,33 +187,38 @@ export function AddListingForm(props: { user: User }) {
           <Group grow>
             <TextInput
               withAsterisk
-              label={t("page.add.contactName.name")}
-              placeholder={t("page.add.contactName.placeholder")}
+              label={t("components.listingForm.contactName.name")}
+              placeholder={t("components.listingForm.contactName.placeholder")}
               key={form.key("contact.name")}
               {...form.getInputProps("contact.name")}
             />
             <TextInput
               withAsterisk
-              label={t("page.add.contactEmail.name")}
-              placeholder={t("page.add.contactEmail.placeholder")}
+              label={t("components.listingForm.contactEmail.name")}
+              placeholder={t("components.listingForm.contactEmail.placeholder")}
               key={form.key("contact.email")}
               {...form.getInputProps("contact.email")}
             />
           </Group>
           <Select
-            label={t("page.add.listingState.name")}
+            label={t("components.listingForm.listingState.name")}
             placeholder={t("common.listingState.available")}
             data={getListingStateOptions(t)}
             key={form.key("listingState")}
             {...form.getInputProps("listingState")}
           />
-          <ImageDropZone file={imageFile} onFileChange={setImageFile} />
+          <ImageDropZone file={imageFile} onFileChange={setImageFile} defaultImage={imagePath} />
           <Text size="xs" c="dimmed">
-            {t("page.add.paymentInfo")}
+            {t("components.listingForm.paymentInfo")}
           </Text>
           <Group justify="flex-end">
+            {isEditing && (
+              <Button component={Link} href="/inzeraty" variant="light" color="gray">
+                {t("components.listingForm.cancelButton")}
+              </Button>
+            )}
             <Button type="submit" loading={isSubmitting} disabled={!isFormValid || isSubmitting}>
-              {t("page.add.button")}
+              {isEditing ? t("components.listingForm.editButton") : t("components.listingForm.addButton")}
             </Button>
           </Group>
           {serverError ? (

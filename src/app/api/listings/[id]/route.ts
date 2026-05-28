@@ -14,63 +14,11 @@ import {
   validateState,
 } from "@/helpers/validators";
 
-export interface ListingsResponse {
-  id: number;
-  itemName: string;
-  itemDescription: string | null;
-  itemCategory: string;
-  itemPrice: number;
-  contactName: string | null;
-  contactEmail: string | null;
-  listingState: string;
-  imagePath: string | null;
-}
-
-export function GET() {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const listingsData = db
-      .select({
-        id: listings.id,
-        itemName: listings.itemName,
-        itemDescription: listings.itemDescription,
-        itemCategory: listings.itemCategory,
-        itemPrice: listings.itemPrice,
-        contactName: listings.contactName,
-        contactEmail: listings.contactEmail,
-        listingState: listings.listingState,
-        imagePath: listings.imagePath,
-      })
-      .from(listings)
-      .all();
+    const { id: idString } = await params;
+    const id = Number(idString);
 
-    const response: ListingsResponse[] = listingsData.map((l) => ({
-      id: l.id,
-      itemName: l.itemName,
-      itemDescription: l.itemDescription,
-      itemCategory: l.itemCategory,
-      itemPrice: l.itemPrice,
-      contactName: l.contactName,
-      contactEmail: l.contactEmail,
-      listingState: l.listingState,
-      imagePath: l.imagePath,
-    }));
-
-    return Response.json(response);
-  } catch (_error) {
-    return new Response(JSON.stringify({ ok: false, message: "Could not load listings." }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-}
-
-export function log<T extends Record<string, unknown>>(obj: T): void {
-  const key = Object.keys(obj)[0];
-  console.log("LOG", `${key}:`, obj[key]);
-}
-
-export async function POST(request: Request) {
-  try {
     const formData = await request.formData();
 
     const itemName = formData.get("itemName") as string;
@@ -82,6 +30,7 @@ export async function POST(request: Request) {
     const listingState = formData.get("listingState") as string;
     const image = formData.get("image") as File | null;
     const authorId = formData.get("authorId") as string;
+    const keepImage = (formData.get("keepImage") as string) === "true";
 
     if (authorId == null || authorId === "undefined") {
       return sendError("authorId is required", 400);
@@ -127,11 +76,24 @@ export async function POST(request: Request) {
       return sendError(stateError, 400);
     }
 
-    const imagePath: string | null = image ? `${randomUUID()}.webp` : null;
+    const dbImagePath =
+      db
+        .select({
+          imagePath: listings.imagePath,
+        })
+        .from(listings)
+        .where(eq(listings.id, id))
+        .get()?.imagePath ?? null;
 
-    const [row] = await db
-      .insert(listings)
-      .values({
+    let imagePath: string | null = null;
+    if (image && !keepImage) {
+      if (dbImagePath) imagePath = dbImagePath;
+      else imagePath = image ? `${randomUUID()}.webp` : null;
+    }
+
+    await db
+      .update(listings)
+      .set({
         itemName: itemName,
         itemDescription: itemDescription,
         itemCategory: itemCategory,
@@ -139,17 +101,15 @@ export async function POST(request: Request) {
         contactName: contactName,
         contactEmail: contactEmail,
         listingState: listingState,
-        imagePath: imagePath,
+        ...(image && !keepImage && { imagePath }),
         authorId: authorId,
       })
-      .returning({ id: listings.id });
+      .where(eq(listings.id, id));
 
-    if (image && imagePath) {
-      await saveImage(image, imagePath);
-    }
+    if (image && imagePath && !keepImage) await saveImage(image, imagePath);
 
-    return new Response(JSON.stringify({ ok: true, id: row.id }), {
-      status: 201,
+    return new Response(JSON.stringify({ ok: true, id }), {
+      status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {

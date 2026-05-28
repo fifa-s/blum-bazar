@@ -36,45 +36,15 @@
       "title": "Domovská stránka",
       "description": "Vítejte na naší domovské stránce! Jsme rádi, že jste zde. Prozkoumejte naše služby a produkty, které vám mohou pomoci dosáhnout vašich cílů. Neváhejte nás kontaktovat pro více informací."
     },
-    "add": {
-      "title": "Přidat nabídku",
-      "description": "Přidejte svůj inzerát do našeho bazaru. Získejte větší viditelnost pro své produkty a služby.",
-      "backToListings": "Zpět",
-      "item": {
-        "name": "Název věci",
-        "placeholder": "Např. Konferenční stolek"
-      },
-      "itemDescription": {
-        "name": "Popis",
-        "placeholder": "Popiš stav, rozměry, místo předání..."
-      },
-      "itemCategory": {
-        "name": "Kategorie",
-        "placeholder": "Vyberte kategorii"
-      },
-      "itemPrice": {
-        "name": "Cena",
-        "free": "Nabídka je zdarma"
-      },
-      "contactName": {
-        "name": "Kontaktní osoba",
-        "placeholder": "Vaše jméno"
-      },
-      "contactEmail": {
-        "name": "E-mail",
-        "placeholder": "jmeno@example.com"
-      },
-      "listingState": {
-        "name": "Stav nabídky"
-      },
-      "paymentInfo": "Platba a předání si domluvíte přímo mezi sebou.",
-      "button": "Přidat nabídku",
-      "successMessage": "Nabídka byla úspěšně přidána."
-    },
     "listings": {
       "title": "Inzeráty",
       "description": "Interní bazar Blogic Store. Nabízej věci kolegům k prodeji nebo zdarma. Platbu a předání si domluvíte přímo mezi sebou.",
       "buttonNewListing": "+ Přidat nabídku"
+    },
+    "add": {
+      "title": "Přidat nabídku",
+      "description": "Přidejte svůj inzerát do našeho bazaru. Získejte větší viditelnost pro své produkty a služby.",
+      "backToListings": "Zpět"
     },
     "listingDetail": {
       "title": "Detail nabídky",
@@ -133,6 +103,40 @@
     "imageDropZone": {
       "title": "Přetáhněte sem obrázek nebo klikněte pro výběr souborů",
       "description": "Připojte jeden soubor, který nesmí přesáhnout 5 MB."
+    },
+    "listingForm": {
+      "item": {
+        "name": "Název věci",
+        "placeholder": "Např. Konferenční stolek"
+      },
+      "itemDescription": {
+        "name": "Popis",
+        "placeholder": "Popiš stav, rozměry, místo předání..."
+      },
+      "itemCategory": {
+        "name": "Kategorie",
+        "placeholder": "Vyberte kategorii"
+      },
+      "itemPrice": {
+        "name": "Cena",
+        "free": "Nabídka je zdarma"
+      },
+      "contactName": {
+        "name": "Kontaktní osoba",
+        "placeholder": "Vaše jméno"
+      },
+      "contactEmail": {
+        "name": "E-mail",
+        "placeholder": "jmeno@example.com"
+      },
+      "listingState": {
+        "name": "Stav nabídky"
+      },
+      "paymentInfo": "Platba a předání si domluvíte přímo mezi sebou.",
+      "successMessage": "Nabídka byla úspěšně přidána.",
+      "addButton": "Přidat nabídku",
+      "editButton": "Upravit nabídku",
+      "cancelButton": "Zrušit"
     }
   }
 }
