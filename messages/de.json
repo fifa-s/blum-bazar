@@ -1,0 +1,160 @@
+{
+  "common": {
+    "locale": "Englisch - EN",
+    "pageLogo": {
+      "ariaLabel": "Blogic Markenlogo"
+    },
+    "maintenance": {
+      "title": "Wartung",
+      "description": "Wir entschuldigen uns, aber unser System wird derzeit gewartet. Wir arbeiten daran, unsere Dienste zu verbessern und sind in Kürze wieder online. Vielen Dank für Ihre Geduld und Ihr Verständnis."
+    },
+    "category": {
+      "all": "Alle Kategorien",
+      "electronics": "Elektronik",
+      "furniture": "Möbel",
+      "clothing": "Kleidung",
+      "books": "Bücher",
+      "other": "Sonstiges"
+    },
+    "listingState": {
+      "all": "Alle Zustände",
+      "available": "Verfügbar",
+      "reserved": "Reserviert",
+      "sold": "Verkauft"
+    },
+    "listingPrice": {
+      "all": "Alle Preise",
+      "free": "Kostenlos",
+      "paid": "Kostenpflichtig"
+    },
+    "currency": {
+      "prefix": "",
+      "suffix": " CZK"
+    },
+    "delete": "Löschen",
+    "cancel": "Abbrechen",
+    "error": {
+      "network": "Netzwerkfehler",
+      "delete": "Löschen fehlgeschlagen"
+    },
+    "profile": "Profil",
+    "signOut": "Abmelden"
+  },
+  "page": {
+    "home": {
+      "title": "Startseite",
+      "description": "Willkommen auf unserer Startseite! Schön, dass Sie hier sind. Entdecken Sie unsere Dienstleistungen und Produkte, die Ihnen helfen können, Ihre Ziele zu erreichen. Kontaktieren Sie uns gerne für weitere Informationen."
+    },
+    "listings": {
+      "title": "Angebote",
+      "description": "Interner Marktplatz von Blogic Store. Bieten Sie Kollegen Artikel zum Verkauf oder kostenlos an. Zahlung und Übergabe erfolgen direkt zwischen Ihnen.",
+      "buttonNewListing": "+ Anzeige hinzufügen"
+    },
+    "add": {
+      "title": "Anzeige hinzufügen",
+      "description": "Fügen Sie Ihre Anzeige unserem Marktplatz hinzu. Erhalten Sie mehr Sichtbarkeit für Ihre Produkte und Dienstleistungen.",
+      "backToListings": "Zurück"
+    },
+    "listingDetail": {
+      "title": "Anzeigendetails",
+      "description": "Hier finden Sie alle Informationen zu dieser Anzeige. Kontaktieren Sie den Verkäufer und vereinbaren Sie Zahlung und Übergabe.",
+      "backToListings": "Zurück zu den Anzeigen",
+      "editButton": "Bearbeiten",
+      "deleteModal": {
+        "title": "Anzeige löschen",
+        "message": "Sind Sie sicher, dass Sie diese Anzeige dauerhaft löschen möchten?"
+      }
+    },
+    "auth": {
+      "common": {
+        "backToListings": "Zurück zu den Anzeigen",
+        "googleButton": "Mit Google fortfahren",
+        "emailTitle": "E-Mail",
+        "emailPlaceholder": "du@beispiel.com",
+        "passwordTitle": "Passwort",
+        "passwordPlaceholder": "Ihr Passwort"
+      },
+      "login": {
+        "title": "Willkommen zurück",
+        "subtitle": "Melden Sie sich in Ihrem Konto an.",
+        "dividerLabel": "oder mit E-Mail anmelden",
+        "footerText": "Noch kein Konto?",
+        "footerLinkLabel": "Konto erstellen",
+        "submitButtonLabel": "Anmelden",
+        "forgotPassword": "Passwort vergessen?"
+      },
+      "register": {
+        "title": "Konto erstellen",
+        "subtitle": "Erstellen Sie ein neues Konto.",
+        "dividerLabel": "oder mit E-Mail registrieren",
+        "footerText": "Bereits ein Konto?",
+        "footerLinkLabel": "Anmelden",
+        "submitButtonLabel": "Konto erstellen",
+        "nameTitle": "Name",
+        "namePlaceholder": "Ihr Name"
+      }
+    }
+  },
+  "components": {
+    "listingsSearch": {
+      "placeholder": "Anzeigen suchen...",
+      "categoryPlaceholder": "Kategorie",
+      "statePlaceholder": "Zustand"
+    },
+    "listingCard": {
+      "contactInfo": "Angeboten von: ",
+      "detailButton": "Details anzeigen"
+    },
+    "listingDetailCard": {
+      "contactTitle": "Kontakt",
+      "contactDisclaimerTitle": "Zahlung und Übergabe",
+      "contactDisclaimer": "Zahlung und Übergabe werden direkt zwischen Ihnen vereinbart — in bar oder per QR-Zahlung.",
+      "reserveButton": "Reservieren",
+      "markAsSold": "Als verkauft markieren",
+      "cancelReservationButton": "Reservierung aufheben",
+      "relistButton": "Als verfügbar markieren"
+    },
+    "imageDropZone": {
+      "title": "Bild hierher ziehen oder klicken, um Dateien auszuwählen",
+      "description": "Eine Datei mit maximal 5 MB anhängen."
+    },
+    "listingForm": {
+      "item": {
+        "name": "Artikelname",
+        "placeholder": "Z. B. Couchtisch"
+      },
+      "itemDescription": {
+        "name": "Beschreibung",
+        "placeholder": "Beschreiben Sie Zustand, Maße, Übergabeort..."
+      },
+      "itemCategory": {
+        "name": "Kategorie",
+        "placeholder": "Kategorie auswählen"
+      },
+      "itemPrice": {
+        "name": "Preis",
+        "free": "Dieses Angebot ist kostenlos"
+      },
+      "contactName": {
+        "name": "Kontaktperson",
+        "placeholder": "Ihr Name"
+      },
+      "contactEmail": {
+        "name": "E-Mail",
+        "placeholder": "name@beispiel.com"
+      },
+      "listingState": {
+        "name": "Anzeigenzustand"
+      },
+      "paymentInfo": "Zahlung und Übergabe werden direkt zwischen Ihnen vereinbart.",
+      "successMessage": "Anzeige wurde erfolgreich hinzugefügt.",
+      "addButton": "Anzeige hinzufügen",
+      "editButton": "Anzeige bearbeiten",
+      "cancelButton": "Abbrechen"
+    },
+    "header": {
+      "listings": "Anzeigen",
+      "newListing": "Neue Anzeige"
+    }
+  }
+}

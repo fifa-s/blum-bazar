@@ -1,0 +1,160 @@
+{
+  "common": {
+    "locale": "日本語 - JA",
+    "pageLogo": {
+      "ariaLabel": "Blogicブランドロゴ"
+    },
+    "maintenance": {
+      "title": "メンテナンス",
+      "description": "現在システムはメンテナンス中です。サービス改善のため作業を行っており、まもなく再開予定です。ご理解とご協力をお願いいたします。"
+    },
+    "category": {
+      "all": "すべてのカテゴリ",
+      "electronics": "電子機器",
+      "furniture": "家具",
+      "clothing": "服",
+      "books": "本",
+      "other": "その他"
+    },
+    "listingState": {
+      "all": "すべての状態",
+      "available": "利用可能",
+      "reserved": "予約済み",
+      "sold": "売却済み"
+    },
+    "listingPrice": {
+      "all": "すべての価格",
+      "free": "無料",
+      "paid": "有料"
+    },
+    "currency": {
+      "prefix": "",
+      "suffix": " CZK"
+    },
+    "delete": "削除",
+    "cancel": "キャンセル",
+    "error": {
+      "network": "ネットワークエラー",
+      "delete": "削除に失敗しました"
+    },
+    "profile": "プロフィール",
+    "signOut": "ログアウト"
+  },
+  "page": {
+    "home": {
+      "title": "ホーム",
+      "description": "ホームページへようこそ！ご利用ありがとうございます。目標達成に役立つサービスや製品をご覧ください。お気軽にお問い合わせください。"
+    },
+    "listings": {
+      "title": "リスティング",
+      "description": "Blogic Storeの社内マーケットプレイスです。社内の同僚に商品を販売または無料で提供できます。支払いと受け渡しは当事者間で直接行われます。",
+      "buttonNewListing": "+ リスティングを追加"
+    },
+    "add": {
+      "title": "リスティングを追加",
+      "description": "マーケットプレイスにリスティングを追加します。商品やサービスの認知度を高めることができます。",
+      "backToListings": "戻る"
+    },
+    "listingDetail": {
+      "title": "リスティング詳細",
+      "description": "このリスティングのすべての情報が表示されます。出品者に連絡し、支払いと受け渡しを調整してください。",
+      "backToListings": "リスティング一覧へ",
+      "editButton": "編集",
+      "deleteModal": {
+        "title": "リスティングを削除",
+        "message": "このリスティングを完全に削除してもよろしいですか？"
+      }
+    },
+    "auth": {
+      "common": {
+        "backToListings": "リスティング一覧へ",
+        "googleButton": "Googleで続行",
+        "emailTitle": "メールアドレス",
+        "emailPlaceholder": "you@example.com",
+        "passwordTitle": "パスワード",
+        "passwordPlaceholder": "パスワード"
+      },
+      "login": {
+        "title": "おかえりなさい",
+        "subtitle": "アカウントにサインインしてください。",
+        "dividerLabel": "またはメールでサインイン",
+        "footerText": "アカウントをお持ちでないですか？",
+        "footerLinkLabel": "アカウント作成",
+        "submitButtonLabel": "サインイン",
+        "forgotPassword": "パスワードをお忘れですか？"
+      },
+      "register": {
+        "title": "アカウント作成",
+        "subtitle": "新しいアカウントを作成します。",
+        "dividerLabel": "またはメールで登録",
+        "footerText": "すでにアカウントをお持ちですか？",
+        "footerLinkLabel": "サインイン",
+        "submitButtonLabel": "アカウント作成",
+        "nameTitle": "名前",
+        "namePlaceholder": "お名前"
+      }
+    }
+  },
+  "components": {
+    "listingsSearch": {
+      "placeholder": "リスティングを検索...",
+      "categoryPlaceholder": "カテゴリー",
+      "statePlaceholder": "状態"
+    },
+    "listingCard": {
+      "contactInfo": "提供者: ",
+      "detailButton": "詳細を見る"
+    },
+    "listingDetailCard": {
+      "contactTitle": "連絡先",
+      "contactDisclaimerTitle": "支払いと受け渡し",
+      "contactDisclaimer": "支払いと受け渡しは当事者間で行われます — 現金またはQR決済。",
+      "reserveButton": "予約する",
+      "markAsSold": "売却済みにする",
+      "cancelReservationButton": "予約をキャンセル",
+      "relistButton": "利用可能にする"
+    },
+    "imageDropZone": {
+      "title": "画像をドラッグするかクリックしてファイルを選択",
+      "description": "5MB以下のファイルを1つ添付してください。"
+    },
+    "listingForm": {
+      "item": {
+        "name": "商品名",
+        "placeholder": "例：コーヒーテーブル"
+      },
+      "itemDescription": {
+        "name": "説明",
+        "placeholder": "状態、寸法、受け渡し場所などを記載してください..."
+      },
+      "itemCategory": {
+        "name": "カテゴリー",
+        "placeholder": "カテゴリーを選択"
+      },
+      "itemPrice": {
+        "name": "価格",
+        "free": "このリスティングは無料です"
+      },
+      "contactName": {
+        "name": "連絡先",
+        "placeholder": "あなたの名前"
+      },
+      "contactEmail": {
+        "name": "メールアドレス",
+        "placeholder": "name@example.com"
+      },
+      "listingState": {
+        "name": "リスティング状態"
+      },
+      "paymentInfo": "支払いと受け渡しは当事者間で直接行われます。",
+      "successMessage": "リスティングが正常に追加されました。",
+      "addButton": "リスティングを追加",
+      "editButton": "リスティングを編集",
+      "cancelButton": "キャンセル"
+    },
+    "header": {
+      "listings": "リスティング",
+      "newListing": "新規リスティング"
+    }
+  }
+}

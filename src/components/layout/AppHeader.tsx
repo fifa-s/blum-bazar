@@ -39,7 +39,9 @@ interface AppHeaderProps {
 const LOCALE_LABELS: Record<LocaleCode, string> = {
   [LOCALE_CODE.cs]: "Čeština - CS",
   [LOCALE_CODE.en]: "English - EN",
+  [LOCALE_CODE.de]: "Deutsch - DE",
   [LOCALE_CODE.zh]: "中文 - ZH",
+  [LOCALE_CODE.ja]: "日本語 - JA",
 };
 
 function LocaleMenu() {
