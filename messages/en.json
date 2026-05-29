@@ -1,5 +1,6 @@
 {
   "common": {
+    "locale": "EN",
     "pageLogo": {
       "ariaLabel": "Blogic brand logo"
     },
@@ -35,7 +36,9 @@
     "error": {
       "network": "Network error",
       "delete": "Failed to delete"
-    }
+    },
+    "profile": "Profile",
+    "signOut": "Sign Out"
   },
   "page": {
     "home": {
@@ -148,6 +151,10 @@
       "addButton": "Add listing",
       "editButton": "Edit listing",
       "cancelButton": "Cancel"
+    },
+    "header": {
+      "listings": "Listings",
+      "newListing": "New listing"
     }
   }
 }

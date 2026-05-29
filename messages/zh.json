@@ -1,0 +1,160 @@
+{
+  "common": {
+    "locale": "ZH",
+    "pageLogo": {
+      "ariaLabel": "Blogic 品牌标志"
+    },
+    "maintenance": {
+      "title": "维护中",
+      "description": "很抱歉，我们的系统当前正在维护中。我们正在努力改进服务，并将很快恢复在线。感谢您的耐心与理解。"
+    },
+    "category": {
+      "all": "所有分类",
+      "electronics": "电子产品",
+      "furniture": "家具",
+      "clothing": "服装",
+      "books": "书籍",
+      "other": "其他"
+    },
+    "listingState": {
+      "all": "所有状态",
+      "available": "可用",
+      "reserved": "已预订",
+      "sold": "已售出"
+    },
+    "listingPrice": {
+      "all": "所有价格",
+      "free": "免费",
+      "paid": "付费"
+    },
+    "currency": {
+      "prefix": "",
+      "suffix": " 捷克克朗"
+    },
+    "delete": "删除",
+    "cancel": "取消",
+    "error": {
+      "network": "网络错误",
+      "delete": "删除失败"
+    },
+    "profile": "个人资料",
+    "signOut": "退出登录"
+  },
+  "page": {
+    "home": {
+      "title": "首页",
+      "description": "欢迎来到我们的首页！很高兴您来到这里。探索我们的服务和产品，帮助您实现目标。如需更多信息，请随时联系我们。"
+    },
+    "listings": {
+      "title": "商品列表",
+      "description": "Blogic Store 内部市场。向同事出售或免费赠送物品。付款和交接由双方直接协商。",
+      "buttonNewListing": "+ 添加商品"
+    },
+    "add": {
+      "title": "添加商品",
+      "description": "将您的商品添加到我们的市场中，让您的产品和服务获得更多曝光。",
+      "backToListings": "返回"
+    },
+    "listingDetail": {
+      "title": "商品详情",
+      "description": "在这里您可以找到有关该商品的所有信息。联系卖家并协商付款和交接。",
+      "backToListings": "返回商品列表",
+      "editButton": "编辑",
+      "deleteModal": {
+        "title": "删除商品",
+        "message": "您确定要永久删除此商品吗？"
+      }
+    },
+    "auth": {
+      "common": {
+        "backToListings": "返回商品列表",
+        "googleButton": "使用 Google 继续",
+        "emailTitle": "电子邮箱",
+        "emailPlaceholder": "you@example.com",
+        "passwordTitle": "密码",
+        "passwordPlaceholder": "您的密码"
+      },
+      "login": {
+        "title": "欢迎回来",
+        "subtitle": "登录您的账户。",
+        "dividerLabel": "或使用电子邮箱登录",
+        "footerText": "还没有账户？",
+        "footerLinkLabel": "创建账户",
+        "submitButtonLabel": "登录",
+        "forgotPassword": "忘记密码？"
+      },
+      "register": {
+        "title": "创建账户",
+        "subtitle": "创建一个新账户。",
+        "dividerLabel": "或使用电子邮箱注册",
+        "footerText": "已经有账户了？",
+        "footerLinkLabel": "登录",
+        "submitButtonLabel": "创建账户",
+        "nameTitle": "姓名",
+        "namePlaceholder": "您的姓名"
+      }
+    }
+  },
+  "components": {
+    "listingsSearch": {
+      "placeholder": "搜索商品...",
+      "categoryPlaceholder": "分类",
+      "statePlaceholder": "状态"
+    },
+    "listingCard": {
+      "contactInfo": "提供者：",
+      "detailButton": "查看详情"
+    },
+    "listingDetailCard": {
+      "contactTitle": "联系方式",
+      "contactDisclaimerTitle": "付款与交接",
+      "contactDisclaimer": "付款和交接由双方自行协商 —— 可使用现金或二维码支付。",
+      "reserveButton": "预订",
+      "markAsSold": "标记为已售出",
+      "cancelReservationButton": "取消预订",
+      "relistButton": "标记为可用"
+    },
+    "imageDropZone": {
+      "title": "将图片拖到这里或点击选择文件",
+      "description": "请上传一个不超过 5 MB 的文件。"
+    },
+    "listingForm": {
+      "item": {
+        "name": "商品名称",
+        "placeholder": "例如：咖啡桌"
+      },
+      "itemDescription": {
+        "name": "描述",
+        "placeholder": "描述商品状况、尺寸、交接地点等..."
+      },
+      "itemCategory": {
+        "name": "分类",
+        "placeholder": "选择一个分类"
+      },
+      "itemPrice": {
+        "name": "价格",
+        "free": "此商品免费"
+      },
+      "contactName": {
+        "name": "联系人",
+        "placeholder": "您的姓名"
+      },
+      "contactEmail": {
+        "name": "电子邮箱",
+        "placeholder": "name@example.com"
+      },
+      "listingState": {
+        "name": "商品状态"
+      },
+      "paymentInfo": "付款和交接由双方直接协商。",
+      "successMessage": "商品已成功添加。",
+      "addButton": "添加商品",
+      "editButton": "编辑商品",
+      "cancelButton": "取消"
+    },
+    "header": {
+      "listings": "商品列表",
+      "newListing": "新增商品"
+    }
+  }
+}
