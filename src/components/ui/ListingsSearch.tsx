@@ -1,6 +1,6 @@
 "use client";
 
-import { Group, Paper, SegmentedControl, Select, Stack, TextInput } from "@mantine/core";
+import { Paper, SegmentedControl, Select, SimpleGrid, Stack, TextInput } from "@mantine/core";
 import { Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -45,7 +45,7 @@ export function ListingsSearch() {
   return (
     <Paper radius="md" withBorder p="md">
       <Stack gap="md">
-        <Group grow gap="md">
+        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="xs">
           <TextInput
             placeholder={t("components.listingsSearch.placeholder")}
             leftSection={<Search size={16} />}
@@ -64,7 +64,7 @@ export function ListingsSearch() {
             defaultValue={searchParams.get("state") ?? ""}
             onChange={(value) => updateParams("state", value ?? "all")}
           />
-        </Group>
+        </SimpleGrid>
         <SegmentedControl
           fullWidth
           data={getListingPriceOptions(t)}
