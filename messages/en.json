@@ -1,0 +1,160 @@
+{
+  "common": {
+    "locale": "English - EN",
+    "pageLogo": {
+      "ariaLabel": "Blogic brand logo"
+    },
+    "maintenance": {
+      "title": "Maintenance",
+      "description": "We apologize, but our system is currently undergoing maintenance. We are working on improving our services and will be back online shortly. Thank you for your patience and understanding."
+    },
+    "category": {
+      "all": "All categories",
+      "electronics": "Electronics",
+      "furniture": "Furniture",
+      "clothing": "Clothing",
+      "books": "Books",
+      "other": "Other"
+    },
+    "listingState": {
+      "all": "All states",
+      "available": "Available",
+      "reserved": "Reserved",
+      "sold": "Sold"
+    },
+    "listingPrice": {
+      "all": "All prices",
+      "free": "Free",
+      "paid": "Paid"
+    },
+    "currency": {
+      "prefix": "",
+      "suffix": " CZK"
+    },
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "error": {
+      "network": "Network error",
+      "delete": "Failed to delete"
+    },
+    "profile": "Profile",
+    "signOut": "Sign Out"
+  },
+  "page": {
+    "home": {
+      "title": "Home",
+      "description": "Welcome to our home page! We are glad you are here. Explore our services and products that can help you achieve your goals. Feel free to contact us for more information."
+    },
+    "listings": {
+      "title": "Listings",
+      "description": "Blogic Store internal marketplace. Offer items to colleagues for sale or for free. Payment and handover are arranged directly between you.",
+      "buttonNewListing": "+ Add listing"
+    },
+    "add": {
+      "title": "Add listing",
+      "description": "Add your listing to our marketplace. Get greater visibility for your products and services.",
+      "backToListings": "Back"
+    },
+    "listingDetail": {
+      "title": "Listing detail",
+      "description": "Here you will find all the information about this listing. Contact the seller and arrange payment and handover.",
+      "backToListings": "Back to listings",
+      "editButton": "Edit",
+      "deleteModal": {
+        "title": "Delete listing",
+        "message": "Are you sure you want to permanently delete this listing?"
+      }
+    },
+    "auth": {
+      "common": {
+        "backToListings": "Back to listings",
+        "googleButton": "Continue with Google",
+        "emailTitle": "Email",
+        "emailPlaceholder": "you@example.com",
+        "passwordTitle": "Password",
+        "passwordPlaceholder": "Your password"
+      },
+      "login": {
+        "title": "Welcome back",
+        "subtitle": "Sign in to your account.",
+        "dividerLabel": "or sign in with email",
+        "footerText": "Don't have an account?",
+        "footerLinkLabel": "Create account",
+        "submitButtonLabel": "Sign in",
+        "forgotPassword": "Forgot your password?"
+      },
+      "register": {
+        "title": "Create account",
+        "subtitle": "Create a new account.",
+        "dividerLabel": "or register with email",
+        "footerText": "Already have an account?",
+        "footerLinkLabel": "Sign in",
+        "submitButtonLabel": "Create account",
+        "nameTitle": "Name",
+        "namePlaceholder": "Your name"
+      }
+    }
+  },
+  "components": {
+    "listingsSearch": {
+      "placeholder": "Search listings...",
+      "categoryPlaceholder": "Category",
+      "statePlaceholder": "State"
+    },
+    "listingCard": {
+      "contactInfo": "Offered by: ",
+      "detailButton": "View detail"
+    },
+    "listingDetailCard": {
+      "contactTitle": "Contact",
+      "contactDisclaimerTitle": "Payment and handover",
+      "contactDisclaimer": "Payment and handover are arranged between you — in cash or by QR payment.",
+      "reserveButton": "Reserve",
+      "markAsSold": "Mark as sold",
+      "cancelReservationButton": "Cancel reservation",
+      "relistButton": "Mark as available"
+    },
+    "imageDropZone": {
+      "title": "Drag an image here or click to select files",
+      "description": "Attach one file no larger than 5 MB."
+    },
+    "listingForm": {
+      "item": {
+        "name": "Item name",
+        "placeholder": "E.g. Coffee table"
+      },
+      "itemDescription": {
+        "name": "Description",
+        "placeholder": "Describe the condition, dimensions, handover location..."
+      },
+      "itemCategory": {
+        "name": "Category",
+        "placeholder": "Select a category"
+      },
+      "itemPrice": {
+        "name": "Price",
+        "free": "This listing is free"
+      },
+      "contactName": {
+        "name": "Contact person",
+        "placeholder": "Your name"
+      },
+      "contactEmail": {
+        "name": "Email",
+        "placeholder": "name@example.com"
+      },
+      "listingState": {
+        "name": "Listing state"
+      },
+      "paymentInfo": "Payment and handover are arranged directly between you.",
+      "successMessage": "Listing was successfully added.",
+      "addButton": "Add listing",
+      "editButton": "Edit listing",
+      "cancelButton": "Cancel"
+    },
+    "header": {
+      "listings": "Listings",
+      "newListing": "New listing"
+    }
+  }
+}

@@ -17,6 +17,9 @@ import {
 import { ChevronDownIcon, LogOutIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import { usePathname, useRouter } from "@/i18n/navigation";
+import { LOCALE_CODE, type LocaleCode } from "@/types/locale";
 import { PageLogo } from "./PageLogo";
 
 interface NavLink {
@@ -33,7 +36,49 @@ interface AppHeaderProps {
   profileHref?: string;
 }
 
+const LOCALE_LABELS: Record<LocaleCode, string> = {
+  [LOCALE_CODE.cs]: "Čeština - CS",
+  [LOCALE_CODE.en]: "English - EN",
+  [LOCALE_CODE.de]: "Deutsch - DE",
+  [LOCALE_CODE.zh]: "中文 - ZH",
+  [LOCALE_CODE.ja]: "日本語 - JA",
+};
+
+function LocaleMenu() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const t = useTranslations();
+
+  const handleLocaleChange = (locale: LocaleCode) => {
+    router.replace(pathname, { locale });
+  };
+
+  return (
+    <Menu width={120} position="bottom-end" offset={8} withArrow arrowPosition="center">
+      <MenuTarget>
+        <UnstyledButton>
+          <Group gap={4} style={{ cursor: "pointer" }}>
+            <Text size="sm" fw={500}>
+              {t("common.locale")}
+            </Text>
+            <ChevronDownIcon size={14} style={{ color: "var(--mantine-color-dimmed)" }} />
+          </Group>
+        </UnstyledButton>
+      </MenuTarget>
+      <MenuDropdown>
+        {(Object.values(LOCALE_CODE) as LocaleCode[]).map((locale) => (
+          <MenuItem key={locale} onClick={() => handleLocaleChange(locale)}>
+            {LOCALE_LABELS[locale]}
+          </MenuItem>
+        ))}
+      </MenuDropdown>
+    </Menu>
+  );
+}
+
 function UserMenu({ profileHref }: { profileHref: string }) {
+  const t = useTranslations();
+
   const { data: session } = useSession();
   const user = session?.user;
 
@@ -70,11 +115,11 @@ function UserMenu({ profileHref }: { profileHref: string }) {
         </Box>
         <MenuDivider />
         <MenuItem leftSection={<UserIcon size={14} />} component={Link} href={profileHref}>
-          Profile
+          {t("common.profile")}
         </MenuItem>
         <MenuDivider />
         <MenuItem leftSection={<LogOutIcon size={14} />} color="red" onClick={() => signOut({ redirectTo: "/" })}>
-          Sign out
+          {t("common.signOut")}
         </MenuItem>
       </MenuDropdown>
     </Menu>
@@ -145,8 +190,9 @@ export function AppHeader({
           ))}
         </Group>
 
-        {/* Right — auth */}
-        <Box>
+        {/* Right — locale + auth */}
+        <Group gap="sm">
+          <LocaleMenu />
           {status === "loading" ? (
             <Skeleton height={32} width={120} radius="md" />
           ) : session ? (
@@ -159,7 +205,7 @@ export function AppHeader({
               registerLabel={registerLabel}
             />
           )}
-        </Box>
+        </Group>
       </Group>
     </Box>
   );

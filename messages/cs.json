@@ -1,5 +1,6 @@
 {
   "common": {
+    "locale": "Čeština - CS",
     "pageLogo": {
       "ariaLabel": "Logo značky Blogic"
     },
@@ -35,7 +36,9 @@
     "error": {
       "network": "Chyba sítě",
       "delete": "Nepodařilo se smazat"
-    }
+    },
+    "profile": "Profil",
+    "signOut": "Odhlásit se"
   },
   "page": {
     "home": {
@@ -148,6 +151,10 @@
       "addButton": "Přidat nabídku",
       "editButton": "Upravit nabídku",
       "cancelButton": "Zrušit"
+    },
+    "header": {
+      "listings": "Inzeráty",
+      "newListing": "Nový inzerát"
     }
   }
 }
