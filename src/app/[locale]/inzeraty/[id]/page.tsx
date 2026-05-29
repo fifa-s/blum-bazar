@@ -50,6 +50,7 @@ export default async function Page(props: PageProps<"/[locale]/inzeraty/[id]">) 
           listingId={id}
           currentUserId={session?.user?.id}
           authorId={listing.authorId}
+          reservedById={listing.reservedById ?? ""}
           itemName={listing.itemName}
           description={listing.itemDescription ?? ""}
           category={category}

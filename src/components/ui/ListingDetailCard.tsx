@@ -106,7 +106,7 @@ export function ListingDetailCard(props: ListingDetailCardProps) {
         </Stack>
       </Card.Section>
       <Card.Section px="md" py="xs">
-        <Group>
+        <Group gap="xs">
           {/* Available → Reserved (any signed-in user) */}
           {isAvailable && props.currentUserId && (
             <Button variant="light" onClick={handleReserve} loading={isPending}>
