@@ -9,6 +9,7 @@ import { accounts, sessions, users, verificationTokens } from "@/db/schemas";
 import { env } from "../env.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   adapter: DrizzleAdapter(db, {
     usersTable: users,
     accountsTable: accounts,
