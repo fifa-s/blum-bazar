@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { listings, users } from "@/db/schemas";
 import { sendError } from "@/helpers/apiError";
-import { saveImage } from "@/helpers/image";
+import { deleteImage, saveImage } from "@/helpers/image";
 import {
   validateContactName,
   validateEmail,
@@ -77,32 +77,31 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     }
 
     const dbImagePath =
-      db
-        .select({
-          imagePath: listings.imagePath,
-        })
-        .from(listings)
-        .where(eq(listings.id, id))
-        .get()?.imagePath ?? null;
+      db.select({ imagePath: listings.imagePath }).from(listings).where(eq(listings.id, id)).get()?.imagePath ?? null;
 
     let imagePath: string | null = null;
-    if (image && !keepImage) {
-      if (dbImagePath) imagePath = dbImagePath;
-      else imagePath = image ? `${randomUUID()}.webp` : null;
+    if (!keepImage) {
+      if (image) {
+        // New file uploaded — reuse existing filename if possible, otherwise generate one
+        imagePath = dbImagePath ?? `${randomUUID()}.webp`;
+      } else {
+        // Explicitly cleared — imagePath stays null, old file gets deleted below
+        if (dbImagePath) deleteImage(dbImagePath);
+      }
     }
 
     await db
       .update(listings)
       .set({
-        itemName: itemName,
-        itemDescription: itemDescription,
-        itemCategory: itemCategory,
-        itemPrice: itemPrice,
-        contactName: contactName,
-        contactEmail: contactEmail,
-        listingState: listingState,
-        ...(image && !keepImage && { imagePath }),
-        authorId: authorId,
+        itemName,
+        itemDescription,
+        itemCategory,
+        itemPrice,
+        contactName,
+        contactEmail,
+        listingState,
+        authorId,
+        ...(!keepImage && { imagePath }), // null when cleared, new path when uploaded
       })
       .where(eq(listings.id, id));
 

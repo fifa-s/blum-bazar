@@ -2,24 +2,50 @@ import { ActionIcon, Group, Image, Overlay, Stack, Text } from "@mantine/core";
 import { Dropzone, type FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { ImageIcon, UploadIcon, XIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 type ImageDropZoneProps = {
   file?: FileWithPath | null;
   defaultImage?: string | null;
   onFileChange?: (file: FileWithPath | null) => void;
+  onDefaultImageClear?: () => void;
 };
 
 export function ImageDropZone(props: ImageDropZoneProps) {
   const t = useTranslations();
+  const [defaultImageCleared, setDefaultImageCleared] = useState(false);
 
-  const previewSrc = props.file ? URL.createObjectURL(props.file) : (props.defaultImage ?? null);
+  const previewSrc = props.file
+    ? URL.createObjectURL(props.file)
+    : !defaultImageCleared
+      ? (props.defaultImage ?? null)
+      : null;
 
   const hasPreview = previewSrc !== null;
+
+  const handleClear = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (props.file) {
+      props.onFileChange?.(null);
+    } else {
+      setDefaultImageCleared(true);
+      props.onDefaultImageClear?.();
+    }
+  };
+
+  // Reset cleared state if a new defaultImage is provided (e.g. form reset)
+  const prevDefault = useState(props.defaultImage)[0];
+  if (props.defaultImage !== prevDefault && !defaultImageCleared === false) {
+    setDefaultImageCleared(false);
+  }
 
   return (
     <Stack gap="md" align="center">
       <Dropzone
-        onDrop={(files) => props.onFileChange?.(files[0] ?? null)}
+        onDrop={(files) => {
+          setDefaultImageCleared(false);
+          props.onFileChange?.(files[0] ?? null);
+        }}
         onReject={(files) => console.log("rejected files", files)}
         maxSize={5 * 1024 ** 2}
         maxFiles={1}
@@ -79,10 +105,7 @@ export function ImageDropZone(props: ImageDropZoneProps) {
                 pointerEvents: "all",
                 zIndex: 10,
               }}
-              onClick={(e) => {
-                e.stopPropagation();
-                props.onFileChange?.(null);
-              }}
+              onClick={handleClear}
             >
               <XIcon size={12} />
             </ActionIcon>

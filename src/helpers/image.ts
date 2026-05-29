@@ -14,3 +14,10 @@ export async function saveImage(file: File, filename: string) {
     .webp({ quality: 80 })
     .toFile(outputPath);
 }
+
+export function deleteImage(filename: string) {
+  const filePath = path.join(process.cwd(), "uploads", filename);
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
+}

@@ -45,6 +45,7 @@ export function ListingForm(props: { user: User; editProps?: EditListingProps })
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [lastPrice, setLastPrice] = useState(0);
+  const [defaultImageCleared, setDefaultImageCleared] = useState(false);
 
   const [imageFile, setImageFile] = useState<FileWithPath | null>(null);
 
@@ -98,7 +99,7 @@ export function ListingForm(props: { user: User; editProps?: EditListingProps })
     formData.append("authorId", props.user.id as string);
     if (imageFile) {
       formData.append("image", imageFile, imageFile.name);
-    } else if (isEditing) {
+    } else if (isEditing && !defaultImageCleared) {
       formData.append("keepImage", "true");
     }
 
@@ -207,7 +208,12 @@ export function ListingForm(props: { user: User; editProps?: EditListingProps })
             key={form.key("listingState")}
             {...form.getInputProps("listingState")}
           />
-          <ImageDropZone file={imageFile} onFileChange={setImageFile} defaultImage={imagePath} />
+          <ImageDropZone
+            file={imageFile}
+            onFileChange={setImageFile}
+            defaultImage={imagePath}
+            onDefaultImageClear={() => setDefaultImageCleared(true)}
+          />{" "}
           <Text size="xs" c="dimmed">
             {t("components.listingForm.paymentInfo")}
           </Text>
