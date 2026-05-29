@@ -29,6 +29,12 @@
     "currency": {
       "prefix": "",
       "suffix": " Kč"
+    },
+    "delete": "Smazat",
+    "cancel": "Zrušit",
+    "error": {
+      "network": "Chyba sítě",
+      "delete": "Nepodařilo se smazat"
     }
   },
   "page": {
@@ -49,7 +55,12 @@
     "listingDetail": {
       "title": "Detail nabídky",
       "description": "Zde najdete všechny informace o této nabídce. Kontaktujte prodejce a domluvte se na platbě a předání.",
-      "backToListings": "Zpět na seznam"
+      "backToListings": "Zpět na seznam",
+      "editButton": "Upravit",
+      "deleteModal": {
+        "title": "Smazat inzerát",
+        "message": "Jste si jisti, že chcete pernamentně smazat tento inzerát?"
+      }
     },
     "auth": {
       "common": {
