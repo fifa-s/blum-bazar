@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { eq } from "drizzle-orm";
+import { auth } from "@/auth";
 import { db } from "@/db";
 import { listings, users } from "@/db/schemas";
 import { sendError } from "@/helpers/apiError";
@@ -114,6 +115,50 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   } catch (error) {
     console.error(error);
     return new Response(JSON.stringify({ ok: false, message: "Could not create listing." }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+}
+
+export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return sendError("Unauthorized", 401);
+    }
+
+    const { id: idString } = await params;
+    const id = Number(idString);
+
+    const listing = db
+      .select({ authorId: listings.authorId, imagePath: listings.imagePath })
+      .from(listings)
+      .where(eq(listings.id, id))
+      .get();
+
+    if (!listing) {
+      return sendError("Listing not found", 404);
+    }
+
+    if (listing.authorId !== session.user.id) {
+      return sendError("Forbidden", 403);
+    }
+
+    if (listing.imagePath) {
+      deleteImage(listing.imagePath);
+    }
+
+    await db.delete(listings).where(eq(listings.id, id));
+
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error(error);
+    return new Response(JSON.stringify({ ok: false, error: "Could not delete listing." }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
