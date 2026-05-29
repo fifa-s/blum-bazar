@@ -1,4 +1,4 @@
-import { Group, Image, SimpleGrid, Stack } from "@mantine/core";
+import { Box, Group, Image, Paper, SimpleGrid, Stack } from "@mantine/core";
 import { eq } from "drizzle-orm";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -38,27 +38,33 @@ export default async function Page(props: PageProps<"/[locale]/inzeraty/[id]">) 
         <BackButton href="/inzeraty">{t("page.listingDetail.backToListings")}</BackButton>
         {isAuthor && <ListingActions listingId={id} />}
       </Group>
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-        <Image
-          radius="md"
-          mah={1000}
-          src={listing.imagePath ? `/api/images/${listing.imagePath}` : "/empty-placeholder.png"}
-          fallbackSrc="/empty-placeholder.png"
-          alt="Image"
-        />
-        <ListingDetailCard
-          listingId={id}
-          currentUserId={session?.user?.id}
-          authorId={listing.authorId}
-          reservedById={listing.reservedById ?? ""}
-          itemName={listing.itemName}
-          description={listing.itemDescription ?? ""}
-          category={category}
-          price={listing.itemPrice}
-          contactName={listing.contactName}
-          contactEmail={listing.contactEmail}
-          state={state}
-        />
+      <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
+        <Box>
+          <Paper radius="md" withBorder p="md">
+            <Image
+              radius="md"
+              mah={1000}
+              src={listing.imagePath ? `/api/images/${listing.imagePath}` : "/empty-placeholder.png"}
+              fallbackSrc="/empty-placeholder.png"
+              alt="Image"
+            />
+          </Paper>
+        </Box>
+        <Box>
+          <ListingDetailCard
+            listingId={id}
+            currentUserId={session?.user?.id}
+            authorId={listing.authorId}
+            reservedById={listing.reservedById ?? ""}
+            itemName={listing.itemName}
+            description={listing.itemDescription ?? ""}
+            category={category}
+            price={listing.itemPrice}
+            contactName={listing.contactName}
+            contactEmail={listing.contactEmail}
+            state={state}
+          />
+        </Box>
       </SimpleGrid>
     </Stack>
   );

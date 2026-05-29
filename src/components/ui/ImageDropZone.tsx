@@ -4,6 +4,10 @@ import { ImageIcon, UploadIcon, XIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+const ACCEPTED_IMAGE_TYPES = IMAGE_MIME_TYPE.filter(
+  (type) => type !== "image/heic" && type !== "image/heif" && type !== "image/avif",
+);
+
 type ImageDropZoneProps = {
   file?: FileWithPath | null;
   defaultImage?: string | null;
@@ -49,7 +53,7 @@ export function ImageDropZone(props: ImageDropZoneProps) {
         onReject={(files) => console.log("rejected files", files)}
         maxSize={5 * 1024 ** 2}
         maxFiles={1}
-        accept={IMAGE_MIME_TYPE}
+        accept={ACCEPTED_IMAGE_TYPES}
         style={{ position: "relative" }}
       >
         <Group justify="center" gap="xl" mih={200} style={{ pointerEvents: "none" }}>

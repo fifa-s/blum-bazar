@@ -145,7 +145,11 @@ export async function POST(request: Request) {
       .returning({ id: listings.id });
 
     if (image && imagePath) {
-      await saveImage(image, imagePath);
+      try {
+        await saveImage(image, imagePath);
+      } catch {
+        return sendError("Image could not be processed. Please upload a JPEG, PNG, or WebP file.", 400);
+      }
     }
 
     return new Response(JSON.stringify({ ok: true, id: row.id }), {
